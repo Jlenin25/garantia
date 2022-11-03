@@ -1,20 +1,20 @@
 <?php
-try {
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: access");
+header("Access-Control-Allow-Methods: GET,POST");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    //Quede libre de cambiar cualquier persona estos datos por si sus datos son distintos.
-    $host = "localhost";
-    $database = "db_practica1";
-    $user = "root";
-    $password = "";
+// Conecta a la base de datos  con usuario, contraseña y nombre de la BD
 
-    $conexion = new msqli($host, $database, $user, $root);
-} catch (\Throwable $th) {
-    if ($conexion = -> connext_errno) {
-        echo "No conectado.";
-    }else{
-        echo "Conectado";
-    }
+$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "db_practica1";
+$conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
+
+if ($conexionBD -> connect_errno) {
+    echo json_encode("Error al conectar a la base de datos");
+    exit();
 }
-;
+
+
 
 ?>
