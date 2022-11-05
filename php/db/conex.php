@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // Conecta a la base de datos  con usuario, contraseña y nombre de la BD
 
-$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "db_practica1";
+$servidor = "localhost"; $usuario = "root"; $contrasenia = ""; $nombreBaseDatos = "dbgarantias";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 if ($conexionBD -> connect_errno) {

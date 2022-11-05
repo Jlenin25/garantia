@@ -1,0 +1,92 @@
+CREATE DATABASE dbGarantias;
+
+USE dbGarantias;
+
+CREATE TABLE ROL(
+	id_rol int NOT NULL AUTO_INCREMENT,
+	nombre varchar(20),
+	PRIMARY KEY (id_rol)
+);
+
+CREATE TABLE USUARIO(
+	id_usuario varchar(50) NOT NULL,
+	contrasena varchar(50) NOT NULL,
+	nombre varchar(50),
+	ap_paterno varchar(50),
+	ap_materno varchar(50),
+	dni varchar(21),
+	direccion varchar(50),
+	celular varchar(21),
+	id_rol int(1),
+	genero char(1),
+	foto varchar(50),
+	PRIMARY KEY (id_usuario),
+	FOREIGN KEY (id_rol) REFERENCES ROL(id_rol)	
+);
+
+CREATE TABLE CATEGORIAPRODUCTO(
+	id_categoria int NOT NULL AUTO_INCREMENT,
+	nombre varchar(50) NOT NULL,
+	PRIMARY KEY (id_categoria)	
+);
+
+CREATE TABLE MARCA(
+	id_marca int NOT NULL AUTO_INCREMENT,
+	nombre varchar(50),
+	PRIMARY KEY (id_marca)
+);
+
+CREATE TABLE PRODUCTO(
+	id_producto int NOT NULL AUTO_INCREMENT,
+	nombre varchar(50),
+	descripcion varchar(50),
+	stock int(7),
+	precio int(7),
+	id_marca int(7),
+	id_categoria int(7),
+	PRIMARY KEY (id_producto),
+	FOREIGN KEY (id_categoria) REFERENCES CATEGORIAPRODUCTO(id_categoria),
+	FOREIGN KEY (id_marca) REFERENCES MARCA(id_marca)
+);
+
+CREATE TABLE TIPOGARANTIA(
+	id_tipogarantia int NOT NULL AUTO_INCREMENT,
+	nombre varchar(50),
+	PRIMARY KEY (id_tipogarantia)
+);
+
+CREATE TABLE GARANTIA(
+	id_garantia int NOT NULL AUTO_INCREMENT,
+	id_producto int(7),
+	id_usuario varchar(50),
+	id_tipogarantia int(7),
+	fechavencimiento date,
+	PRIMARY KEY (id_garantia),
+	FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto),
+	FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario),
+	FOREIGN KEY (id_tipogarantia) REFERENCES TIPOGARANTIA(id_tipogarantia)
+);
+
+CREATE TABLE REVISIÓN(
+	id_revision int NOT NULL AUTO_INCREMENT,
+	id_producto int(7),
+	id_usuario varchar(50),
+	descripcion varchar(50),
+	PRIMARY KEY (id_revision),
+	FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto),
+	FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+);
+
+CREATE TABLE PEDIDO(
+	id_pedido int NOT NULL AUTO_INCREMENT,
+	id_usuario varchar(50),
+	id_producto int(7),
+	fecha date,
+	totalpagar int(7),
+	PRIMARY KEY (id_pedido),
+	FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto),
+	FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
+);
+
+
+

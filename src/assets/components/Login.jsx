@@ -16,17 +16,25 @@ class Login extends React.Component {
   sendData = (e) => {
     e.preventDefault();
     const { user } = this.state.usuario;
-    var dataSend = { user: document.getElementById("user").value, contraseña: document.getElementById("password").value };
-    fetch(Api + "cruds/usuarios/?consultar="+user, {
+    var dataSend = {
+      user: document.getElementById("user").value,
+      contrasena: document.getElementById("password").value,
+    };
+    fetch(Api + "cruds/usuarios/?consultar=" + user, {
       method: "POST",
       body: JSON.stringify(dataSend),
     })
       .then((Response) => Response.json())
       .then((dataResponse) => {
-        if (dataResponse[0]['contraseña'] === dataSend.contraseña) {
-          window.location.href = "/succes";
+        if (dataResponse[1]["success"] == 1) {
+          if (dataResponse[0][0]["contrasena"] === dataSend.contrasena) {
+            window.location.href = "/succes";
+          }else{
+            window.alert("Credenciales incorrectas.");
+          }
+        } else {
+          window.alert("Credenciales incorrectas.");
         }
-        // 
       })
       .catch(console.log());
   };
