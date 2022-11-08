@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
 import Login from "./assets/components/Login";
 import Succes from "./assets/components/Succes";
-import { Session } from "./assets/services/Session";
 import Cookies from "universal-cookie";
-// import { FSession } from "./assets/services/Session";
-// import {alter} from "./assets/components/Login";
+
+
 const cookies = new Cookies();
+
 class App extends React.Component {
   constructor(props) {
     super(props);
