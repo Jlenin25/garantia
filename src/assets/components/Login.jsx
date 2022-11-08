@@ -2,13 +2,24 @@ import React from "react";
 import "../css/Login.css";
 import Api from "../services/Api";
 // import "../../../php/cruds/auth/login.php";
+import { Session } from "../services/Session";
+import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+// import { Redirect } from "react-router";
+// import { FSession } from "../services/Session";
+// import {valor} from "../../App";
+const cookies = new Cookies();
 class Login extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-  state = { dataLoaded: false, usuario: [] };
-
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    dataLoaded: false,
+    usuario: [],
+    loggedin: false,
+  };
   changeValue = (e) => {
+    e.preventDefault();
     const state = this.state.usuario;
     state[e.target.name] = e.target.value;
     this.setState({ state });
@@ -26,10 +37,14 @@ class Login extends React.Component {
     })
       .then((Response) => Response.json())
       .then((dataResponse) => {
+        console.log(dataResponse);
         if (dataResponse[1]["success"] == 1) {
           if (dataResponse[0][0]["contrasena"] === dataSend.contrasena) {
-            window.location.href = "/succes";
-          }else{
+            this.state.loggedin = true;
+            this.props.CambiarEstado();
+            window.history.pushState(null, '', "/success");
+            // <Redirect to="/success" />
+          } else {
             window.alert("Credenciales incorrectas.");
           }
         } else {
@@ -39,7 +54,7 @@ class Login extends React.Component {
       .catch(console.log());
   };
   render() {
-    return (
+    return (      
       <div className="login">
         <h1 className="text-center">Hello Again!</h1>
 
@@ -88,5 +103,4 @@ class Login extends React.Component {
     );
   }
 }
-
 export default Login;

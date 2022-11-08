@@ -22,7 +22,7 @@ if (isset($_GET["consultar"])) {
 
 
 
-$sqlGarantias = mysqli_query($conexionBD,"SELECT * FROM usuario");
+$sqlGarantias = mysqli_query($conexionBD,"CALL LISTARUSUARIO()");
 if(mysqli_num_rows($sqlGarantias) > 0){
     $usuarios = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
     echo json_encode($usuarios);
