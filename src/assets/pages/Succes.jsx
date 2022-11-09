@@ -16,7 +16,7 @@ class Succes extends React.Component {
   render() {
     return (
       <>
-        <h1>exito</h1>
+        <h1>Éxito</h1>
         <input
           className="btn btn-success w-100"
           type="submit"

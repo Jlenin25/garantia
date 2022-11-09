@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
-import Login from "./assets/components/Login";
-import Succes from "./assets/components/Succes";
+import Login from "./assets/pages/Login";
+import Succes from "./assets/pages/Succes";
+import Dashboard from "./assets/pages/Dashboard";
 import Cookies from "universal-cookie";
-
 
 const cookies = new Cookies();
 
@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
   }
   state = {
-    logged: cookies.get('logged'),
+    logged: cookies.get("logged"),
   };
 
   // componentDidMount(){
@@ -28,13 +28,13 @@ class App extends React.Component {
       this.setState({
         logged: 1,
       });
-      cookies.set('logged', '1', {path:"/"});
+      cookies.set("logged", "1", { path: "/" });
       // return this.renderApp();
     } else {
       this.setState({
         logged: 0,
       });
-      cookies.set('logged', '0', {path:"/"});
+      cookies.set("logged", "0", { path: "/" });
       // return this.renderLogin();
     }
   };
@@ -62,6 +62,9 @@ class App extends React.Component {
               path="/success"
               element={<Succes CambiarEstado={this.CambiarEstado}></Succes>}
             ></Route>
+            <Route exact path="/dashboard"
+              element={<Dashboard></Dashboard>}>
+            </Route>
             {/*=============================== RUTA PARA ERRORES ===============================*/}
             <Route exact path="*" element={<>ERROR: 404</>}></Route>
           </Routes>

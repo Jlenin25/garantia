@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/Login.css";
+// import "../css/Login.css";
 import "../css/LoginPlantilla.css";
 import Api from "../services/Api";
 import { Link, BrowserRouter as Router } from "react-router-dom";
@@ -30,7 +30,7 @@ class Login extends React.Component {
       user: document.getElementById("user").value,
       contrasena: document.getElementById("password").value,
     };
-    fetch(Api + "cruds/usuarios/?consultar=" + user, {
+    fetch(Api + "cruds/usuarios/?login=" + user, {
       method: "POST",
       body: JSON.stringify(dataSend),
     })
@@ -41,8 +41,28 @@ class Login extends React.Component {
           if (dataResponse[0][0]["contrasena"] === dataSend.contrasena) {
             this.state.loggedin = true;
             this.props.CambiarEstado();
-            window.history.pushState(null, "", "/success");
-            // <Redirect to="/success" />
+
+            cookies.set("contrasena", dataResponse[0][0]["contrasena"], { path: "/" });
+            cookies.set("nombre", dataResponse[0][0]["nombre"], { path: "/" });
+            cookies.set("ap_paterno", dataResponse[0][0]["ap_paterno"], { path: "/" });
+            cookies.set("ap_materno", dataResponse[0][0]["ap_materno"], { path: "/" });
+            cookies.set("dni", dataResponse[0][0]["dni"], { path: "/" });
+            cookies.set("direccion", dataResponse[0][0]["direccion"], { path: "/" });
+            cookies.set("celular", dataResponse[0][0]["celular"], { path: "/" });
+            cookies.set("foto", dataResponse[0][0]["foto"], { path: "/" });
+            switch (dataResponse[0][0]["id_rol"]) {
+              case 1:
+                cookies.set("rol", 'Administrador', { path: "/" });
+                break;
+              case 2:
+                cookies.set("rol", 'Analista', { path: "/" });
+                break;
+              default:
+                cookies.set("rol", 'Cliente', { path: "/" });
+                break;
+            }
+
+            window.history.pushState(null, "", "/dashboard");
           } else {
             window.alert("Credenciales incorrectas.");
           }

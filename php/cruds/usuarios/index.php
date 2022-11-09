@@ -4,8 +4,8 @@ include '../../db/conex.php';
 
 //=========================================================
 
-if (isset($_GET["consultar"])) {
-    $sqlGarantias = mysqli_query($conexionBD,"SELECT contrasena, id_rol FROM usuario WHERE id_usuario=".$_GET["consultar"]);
+if (isset($_GET["login"])) {
+    $sqlGarantias = mysqli_query($conexionBD,"CALL LOGIN($_GET[login])");
     $usuarios[0] = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
     if(mysqli_num_rows($sqlGarantias) > 0){
         $usuarios[1] = ["success"=>1];
