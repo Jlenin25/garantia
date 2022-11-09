@@ -90,3 +90,9 @@ CREATE TABLE PEDIDO(
 
 
 
+PROCEDIMIENTOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+CREATE PROCEDURE LOGIN(in login varchar(11))
+SELECT contrasena, nombre, ap_paterno, ap_materno, dni, direccion, celular, id_rol, foto 
+	FROM usuario
+	WHERE id_usuario = login;
