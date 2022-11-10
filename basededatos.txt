@@ -92,7 +92,14 @@ CREATE TABLE PEDIDO(
 
 PROCEDIMIENTOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
+EJECUTAR POR SEPARADO
+
 CREATE PROCEDURE LOGIN(in login varchar(11))
 SELECT contrasena, nombre, ap_paterno, ap_materno, dni, direccion, celular, id_rol, foto 
 	FROM usuario
 	WHERE id_usuario = login;
+
+
+
+CREATE PROCEDURE REGISTER(in Vid_usuario varchar(50), in Vcontrasena varchar(50), in Vnombre varchar(50), in Vap_paterno varchar(50), in Vap_materno varchar(50), in Vdni varchar(21), in Vdireccion varchar(50), in Vcelular varchar(50), in Vgenero char(1), in Vfoto varchar(50))
+	INSERT INTO usuario (id_usuario, contrasena, nombre, ap_paterno, ap_materno, dni, direccion, celular, id_rol, genero, foto) VALUES (Vid_usuario, Vcontrasena, Vnombre, Vap_paterno, Vap_materno, Vdni, Vdireccion, Vcelular, 3, Vgenero, Vfoto);

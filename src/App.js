@@ -3,6 +3,8 @@ import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
 import Login from "./assets/pages/Login";
 import Succes from "./assets/pages/Succes";
 import Dashboard from "./assets/pages/Dashboard";
+import Register from "./assets/pages/Register";
+
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -38,12 +40,26 @@ class App extends React.Component {
       // return this.renderLogin();
     }
   };
-
+  returnLogin() {
+    window.history.pushState(null, "", "");
+  }
   renderLogin() {
     return (
-      <div>
-        <Login CambiarEstado={this.CambiarEstado}></Login>
-      </div>
+      <Router>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<Login CambiarEstado={this.CambiarEstado}></Login>}
+          ></Route>
+          <Route
+            exact
+            path="/register"
+            element={<Register CambiarEstado={this.CambiarEstado}></Register>}
+          ></Route>
+          <Route exact path="*" element={<>ERROR: 404</>}></Route>
+        </Routes>
+      </Router>
     );
   }
 
@@ -52,21 +68,24 @@ class App extends React.Component {
       <Router>
         <div className="container">
           <Routes>
-            <Route
+            {/* <Route
               exact
-              path="/"
-              element={<Login CambiarEstado={this.CambiarEstado}></Login>}
-            ></Route>
+              path="/register"
+              element={<Register CambiarEstado={this.CambiarEstado}></Register>}
+            ></Route> */}
             <Route
               exact
               path="/success"
               element={<Succes CambiarEstado={this.CambiarEstado}></Succes>}
             ></Route>
-            <Route exact path="/dashboard"
-              element={<Dashboard></Dashboard>}>
-            </Route>
+            <Route
+              exact
+              path="/"
+              element={<Dashboard></Dashboard>}
+            ></Route>
             {/*=============================== RUTA PARA ERRORES ===============================*/}
             <Route exact path="*" element={<>ERROR: 404</>}></Route>
+            {/*========================= RUTA PARA VOLVER AL DASHBOARD ========================= */}
           </Routes>
         </div>
       </Router>

@@ -18,6 +18,30 @@ if (isset($_GET["login"])) {
         exit();
     }
 }
+if (isset($_GET["register"])) {
+    
+    $data = json_decode(file_get_contents("php://input"));
+    
+    $nombre = $data->nombre;
+    $ap_paterno = $data->ap_paterno;
+    $ap_materno = $data->ap_materno;
+    $contrasena = $data->contrasena;
+    $direccion = $data->direccion;
+    $dni = $data->dni;
+    $foto = substr($data->foto, strlen($data->foto)-50, strlen($data->foto));
+    $celular = $data->celular;
+    $genero = $data->genero;
+    $user = substr($nombre, 0, 1) . $ap_paterno . rand(1, 1000);
+    
+    
+    $sqlGarantias = mysqli_query($conexionBD,"CALL REGISTER('$user', '$contrasena', '$nombre', '$ap_paterno', '$ap_materno', '$dni', '$direccion', '$celular', '$genero', '$foto')");
+    echo json_encode($user);
+    exit();
+
+
+    
+    
+}
     
 
 

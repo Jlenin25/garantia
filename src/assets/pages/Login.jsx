@@ -17,6 +17,9 @@ class Login extends React.Component {
     usuario: [],
     loggedin: false,
   };
+  componentDidMount(){
+    // window.history.pushState(null, "", "/");
+  }
   changeValue = (e) => {
     e.preventDefault();
     const state = this.state.usuario;
@@ -62,7 +65,8 @@ class Login extends React.Component {
                 break;
             }
 
-            window.history.pushState(null, "", "/dashboard");
+            // window.history.pushState(null, "", "/dashboard");
+            window.location.href = "/";
           } else {
             window.alert("Credenciales incorrectas.");
           }
@@ -153,8 +157,7 @@ class Login extends React.Component {
                 </button>
               </div>
               <p className="MuiTypography-root MuiTypography-body2 css-f1egar">
-                ¿No tienes una cuenta?
-                <a
+                ¿No tienes una cuenta? <a
                   className="MuiTypography-root MuiTypography-subtitle2 MuiLink-root MuiLink-underlineHover css-1c2db0i"
                   href="/register"
                 >
