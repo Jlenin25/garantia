@@ -1,14 +1,27 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Routes, Link } from "react-router-dom";
+
 import Login from "./assets/pages/Login";
-import Succes from "./assets/pages/Succes";
-import Dashboard from "./assets/pages/Dashboard";
 import Register from "./assets/pages/Register";
+import Succes from "./assets/pages/Succes";
+
+import Dashboard from "./assets/pages/Dashboard";
+import Pedidos from "./assets/pages/Pedidos";
+import Garantias from "./assets/pages/Garantias";
+import Productos from "./assets/pages/Productos";
+import Revisiones from "./assets/pages/Revisiones";
+import EditarAnalista from "./assets/pages/EditarAnalista";
+import Cuenta from "./assets/pages/Cuenta";
+
+import GarantiasUsuario from "./assets/pages/GarantiasUsuario";
+import PedidosUsuario from "./assets/pages/PedidosUsuario";
+import ProductosUsuario from "./assets/pages/ProductosUsuario";
+import RevisionesUsuario from "./assets/pages/RevisionesUsuario";
 
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-
+var rol = cookies.get("id_rol");
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -64,32 +77,159 @@ class App extends React.Component {
   }
 
   renderApp() {
-    return (
-      <Router>
-        <div className="container">
-          <Routes>
-            {/* <Route
-              exact
-              path="/register"
-              element={<Register CambiarEstado={this.CambiarEstado}></Register>}
-            ></Route> */}
-            <Route
-              exact
-              path="/success"
-              element={<Succes CambiarEstado={this.CambiarEstado}></Succes>}
-            ></Route>
-            <Route
-              exact
-              path="/"
-              element={<Dashboard></Dashboard>}
-            ></Route>
-            {/*=============================== RUTA PARA ERRORES ===============================*/}
-            <Route exact path="*" element={<>ERROR: 404</>}></Route>
-            {/*========================= RUTA PARA VOLVER AL DASHBOARD ========================= */}
-          </Routes>
-        </div>
-      </Router>
-    );
+    if (rol == 1) {
+      return (
+        <Router>
+          <div className="container">
+            <Routes>
+              <Route
+                exact
+                path="/pedidos"
+                element={<Pedidos CambiarEstado={this.CambiarEstado}></Pedidos>}
+              ></Route>
+              <Route
+                exact
+                path="/garantias"
+                element={
+                  <Garantias CambiarEstado={this.CambiarEstado}></Garantias>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/productos"
+                element={
+                  <Productos CambiarEstado={this.CambiarEstado}></Productos>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/revisiones"
+                element={
+                  <Revisiones CambiarEstado={this.CambiarEstado}></Revisiones>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/editaranalista"
+                element={
+                  <EditarAnalista
+                    CambiarEstado={this.CambiarEstado}
+                  ></EditarAnalista>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/cuenta"
+                element={<Cuenta CambiarEstado={this.CambiarEstado}></Cuenta>}
+              ></Route>
+              <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
+              {/*=============================== RUTA PARA ERRORES ===============================*/}
+              <Route exact path="*" element={<>ERROR: 404</>}></Route>
+              {/*========================= RUTA PARA VOLVER AL DASHBOARD ========================= */}
+            </Routes>
+          </div>
+        </Router>
+      );
+    } else if (rol == 2) {
+      return (
+        <Router>
+          <div className="container">
+            <Routes>
+              <Route
+                exact
+                path="/success"
+                element={<Succes CambiarEstado={this.CambiarEstado}></Succes>}
+              ></Route>
+              <Route
+                exact
+                path="/pedidos"
+                element={<Pedidos CambiarEstado={this.CambiarEstado}></Pedidos>}
+              ></Route>
+              <Route
+                exact
+                path="/garantias"
+                element={
+                  <Garantias CambiarEstado={this.CambiarEstado}></Garantias>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/productos"
+                element={
+                  <Productos CambiarEstado={this.CambiarEstado}></Productos>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/revisiones"
+                element={
+                  <Revisiones CambiarEstado={this.CambiarEstado}></Revisiones>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/cuenta"
+                element={<Cuenta CambiarEstado={this.CambiarEstado}></Cuenta>}
+              ></Route>
+              <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
+              {/*=============================== RUTA PARA ERRORES ===============================*/}
+              <Route exact path="*" element={<>ERROR: 404</>}></Route>
+              {/*========================= RUTA PARA VOLVER AL DASHBOARD ========================= */}
+            </Routes>
+          </div>
+        </Router>
+      );
+    } else if (rol == 3) {
+      return (
+        <Router>
+          <div className="container">
+            <Routes>
+              <Route
+                exact
+                path="/pedidos"
+                element={<PedidosUsuario></PedidosUsuario>}
+              ></Route>
+              <Route
+                exact
+                path="/productos"
+                element={
+                  <ProductosUsuario
+                    CambiarEstado={this.CambiarEstado}
+                  ></ProductosUsuario>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/revisiones"
+                element={
+                  <RevisionesUsuario
+                    CambiarEstado={this.CambiarEstado}
+                  ></RevisionesUsuario>
+                }
+              ></Route>
+              <Route
+                exact
+                path="/success"
+                element={<Succes CambiarEstado={this.CambiarEstado}></Succes>}
+              ></Route>
+              <Route
+                exact
+                path="/cuenta"
+                element={<Cuenta CambiarEstado={this.CambiarEstado}></Cuenta>}
+              ></Route>
+              <Route
+                exact
+                path="/"
+                element={<GarantiasUsuario></GarantiasUsuario>}
+              ></Route>
+              {/*=============================== RUTA PARA ERRORES ===============================*/}
+              <Route exact path="*" element={<>ERROR: 404</>}></Route>
+              {/*========================= RUTA PARA VOLVER AL DASHBOARD ========================= */}
+            </Routes>
+          </div>
+        </Router>
+      );
+    }
   }
 
   render() {

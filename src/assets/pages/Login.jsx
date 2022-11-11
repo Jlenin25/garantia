@@ -53,6 +53,7 @@ class Login extends React.Component {
             cookies.set("direccion", dataResponse[0][0]["direccion"], { path: "/" });
             cookies.set("celular", dataResponse[0][0]["celular"], { path: "/" });
             cookies.set("foto", dataResponse[0][0]["foto"], { path: "/" });
+            cookies.set("id_rol", dataResponse[0][0]["id_rol"], {path: "/"});
             switch (dataResponse[0][0]["id_rol"]) {
               case 1:
                 cookies.set("rol", 'Administrador', { path: "/" });
@@ -109,15 +110,9 @@ class Login extends React.Component {
                     type="text"
                     onChange={this.changeValue}
                     className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
+                    placeholder="Usuario"
                   />
-                  <fieldset
-                    aria-hidden="true"
-                    className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                  >
-                    <legend className="css-1in441m">
-                      <span>Usuario</span>
-                    </legend>
-                  </fieldset>
+                  
                 </div>
               </div>
               <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
@@ -137,15 +132,8 @@ class Login extends React.Component {
                     required
                     onChange={this.changeValue}
                     className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
+                    placeholder="Contraseña"
                   />
-                  <fieldset
-                    aria-hidden="true"
-                    className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                  >
-                    <legend className="css-1in441m">
-                      <span>Contraseña</span>
-                    </legend>
-                  </fieldset>
                 </div>
               </div>
               <div className="MuiBox-root css-1sf3xto">

@@ -75,16 +75,25 @@ class Register extends React.Component {
             >
               <div className="MuiBox-root css-5vb4lz">
                 <h4 className="MuiTypography-root MuiTypography-h4 css-2voflx">
-                  Create a new account
+                  Crea una nueva cuenta
                 </h4>
                 <p className="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom css-imsni4">
-                  Use your email to create a new account
+                  Ingrese sus datos en los siguientes apartados:
                 </p>
               </div>
               <div className="flex-form">
                 <div className="max-width-48">
                   <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                      <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Nombre
+                      </label>
                       <input
                         aria-invalid="false"
                         id="nombre"
@@ -94,14 +103,20 @@ class Register extends React.Component {
                         placeholder="Nombre"
                         required
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                   <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Apellido Paterno
+                      </label>
                       <input
                         aria-invalid="false"
                         id="ap_paterno"
@@ -111,14 +126,20 @@ class Register extends React.Component {
                         placeholder="Apellido Paterno"
                         required
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                   <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Apellido Materno
+                      </label>
                       <input
                         aria-invalid="false"
                         id="ap_materno"
@@ -127,14 +148,20 @@ class Register extends React.Component {
                         placeholder="Apellido Materno"
                         className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                     
                     </div>
                   </div>
                   <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Dni
+                      </label>
                       <input
                         aria-invalid="false"
                         id="dni"
@@ -144,14 +171,20 @@ class Register extends React.Component {
                         required
                         className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                   <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Contraseña
+                      </label>
                       <input
                         aria-invalid="false"
                         id="contrasena"
@@ -161,16 +194,22 @@ class Register extends React.Component {
                         placeholder="Contraseña"
                         className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                 </div>
                 <div className="max-width-48">
                   <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Dirección
+                      </label>
                       <input
                         aria-invalid="false"
                         id="direccion"
@@ -180,14 +219,20 @@ class Register extends React.Component {
                         placeholder="Dirección"
                         className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                   <div className="css-1u0h3mu ">
                     <div className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Celular
+                      </label>
                       <input
                         aria-invalid="false"
                         id="celular"
@@ -197,14 +242,20 @@ class Register extends React.Component {
                         className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                         placeholder="Celular"
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                   <div className="css-1u0h3mu">
                     <div className="css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Género
+                      </label>
                       <select
                         required
                         className="css-j6vbi8 graycolor"
@@ -214,24 +265,27 @@ class Register extends React.Component {
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                       </select>
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                   <div className="css-1u0h3mu">
                     <div className="css-yrb7tp">
+                    <label
+                        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled css-1x3fk9d"
+                        data-shrink="true"
+                        htmlFor=":r0:"
+                        id=":r0:-label"
+                        
+                      >
+                        Foto
+                      </label>
                       <input
                         type="file"
                         className="css-j6vbi8 graycolor"
                         id="foto"
                         name="foto"
                       />
-                      <fieldset
-                        aria-hidden="true"
-                        className="MuiOutlinedInput-notchedOutline css-17cylm7"
-                      ></fieldset>
+                      
                     </div>
                   </div>
                 </div>
@@ -244,16 +298,16 @@ class Register extends React.Component {
                   type="submit"
                   id="btnRegistrar"
                 >
-                  Sign Up Now
+                  Registrar
                 </button>
               </div>
               <p className="MuiTypography-root MuiTypography-body2 css-f1egar">
-                Have an account{" "}
+                ¿Ya tienes una cuenta?{" "}
                 <a
                   className="MuiTypography-root MuiTypography-subtitle2 MuiLink-root MuiLink-underlineHover css-bf2lcv"
                   href="http://localhost:3000/"
                 >
-                  Sign In
+                  Login
                 </a>
               </p>
             </form>
