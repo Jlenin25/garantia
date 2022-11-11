@@ -24,7 +24,7 @@ class GarantiasUsuario extends React.Component {
 
   // }
   render() {
-    this.selectedPage();
+    // this.selectedPage();
     return (
       <>
         <Header GetIds={this.GetIds}></Header>
