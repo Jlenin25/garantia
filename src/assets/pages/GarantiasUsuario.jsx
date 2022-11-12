@@ -18,13 +18,8 @@ class GarantiasUsuario extends React.Component {
       AsideMenu.setAttribute("hidden", "1");
     }
   }
-  // selectedPage(){
-  //   var elemento = document.getElementById("idgarantia").className;
-  //   elemento += " selectedpage";
 
-  // }
   render() {
-    // this.selectedPage();
     return (
       <>
         <Header GetIds={this.GetIds}></Header>
