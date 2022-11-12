@@ -110,7 +110,7 @@ class App extends React.Component {
               ></Route>
               <Route
                 exact
-                path="/editaranalista"
+                path="/analistas"
                 element={
                   <EditarAnalista
                     CambiarEstado={this.CambiarEstado}

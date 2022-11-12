@@ -1,39 +1,59 @@
 import React from "react";
 import "../css/AsideMenuPlantilla.css";
 import Cookies from "universal-cookie";
+import $ from "jquery";
 
 const cookies = new Cookies();
 var rol = cookies.get("id_rol");
 var rolname;
 if (cookies.get("id_rol") == 1) {
   rolname = "Administrador";
-}else if(cookies.get("id_rol") == 2){
+} else if (cookies.get("id_rol") == 2) {
   rolname = "Analista";
-}else{
-  rolname = "Cliente"
+} else {
+  rolname = "Cliente";
 }
+
 class AsideMenu extends React.Component {
   constructor(props) {
     super(props);
   }
   state = {};
-  
-  
+
   render() {
-    
+    function setClass() {
+      window.onload = () => {
+        var page = window.location.pathname;
+        if (page == "/") {
+          $("#dashboard").addClass("selectedpage");
+        } else {
+          page = page.slice(1);
+          $("#" + page).addClass("selectedpage");
+        }
+      };
+    }
+    setClass();
+    function isSelected(id) {
+      $(".selectedpage").removeClass("selectedpage");
+      window.history.pushState(null, "", "/" + id);
+      if (window.location.pathname == "/" + id) {
+        $("#" + id).addClass("selectedpage");
+      }
+    }
     function OptionsByRol() {
-      function Salir(){
-        cookies.set('logged', '0', {path:"/"});
-        window.location.href = '/';
-      } 
+      function Salir() {
+        cookies.set("logged", "0", { path: "/" });
+        window.location.href = "/";
+      }
       if (rol == 1) {
         return (
           <>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90 for-select"
                 tabIndex="0"
-                href="http://localhost:3000/"
+                id="dashboard"
+                href="/"
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -57,9 +77,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/pedidos")}
+                id="pedidos"
+                onClick={() => isSelected("pedidos")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -91,10 +112,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90 for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/garantias")}
-                 
+                id="garantias"
+                onClick={() => isSelected("garantias")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -124,9 +145,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/productos")}
+                id="productos"
+                onClick={() => isSelected("productos")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -154,9 +176,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/revisiones")}
+                id="revisiones"
+                onClick={() => isSelected("revisiones")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -186,9 +209,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/analistas")}
+                id="analistas"
+                onClick={() => isSelected("analistas")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -213,14 +237,17 @@ class AsideMenu extends React.Component {
                     </svg>
                   </svg>
                 </span>
-                <div className="MuiBox-root css-i9gxme">Gestionar Analistas</div>
+                <div className="MuiBox-root css-i9gxme">
+                  Gestionar Analistas
+                </div>
               </a>
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/cuenta")}
+                id="cuenta"
+                onClick={() => isSelected("cuenta")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -246,12 +273,11 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Cuenta</div>
               </a>
             </li>
-            <li className="MuiListItem-root MuiListItem-padding css-19wsrat"   >
+            <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <button
                 className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
                 tabIndex="0"
                 onClick={() => Salir()}
-                              
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -280,7 +306,6 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Salir</div>
               </button>
             </li>
-
           </>
         );
       } else if (rol == 2) {
@@ -288,9 +313,10 @@ class AsideMenu extends React.Component {
           <>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90 for-select"
                 tabIndex="0"
-                href="http://localhost:3000/"
+                id="dashboard"
+                href="/"
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -314,9 +340,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/pedidos")}
+                id="pedidos"
+                onClick={() => isSelected("pedidos")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -348,10 +375,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90 for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/garantias")}
-                 
+                id="garantias"
+                onClick={() => isSelected("garantias")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -381,9 +408,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/productos")}
+                id="productos"
+                onClick={() => isSelected("productos")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -411,9 +439,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/revisiones")}
+                id="revisiones"
+                onClick={() => isSelected("revisiones")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -441,12 +470,13 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Revisiones</div>
               </a>
             </li>
-            
+
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/cuenta")}
+                id="cuenta"
+                onClick={() => isSelected("cuenta")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -472,12 +502,11 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Cuenta</div>
               </a>
             </li>
-            <li className="MuiListItem-root MuiListItem-padding css-19wsrat"   >
+            <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <button
                 className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
                 tabIndex="0"
                 onClick={() => Salir()}
-                              
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -506,7 +535,6 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Salir</div>
               </button>
             </li>
-
           </>
         );
       } else if (rol == 3) {
@@ -514,11 +542,10 @@ class AsideMenu extends React.Component {
           <>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-129bs90 for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/")}
-                id="idgarantia"
-                 
+                href="/"
+                id="dashboard"
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -548,9 +575,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/pedidos")}
+                id="pedidos"
+                onClick={() => isSelected("pedidos")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -582,9 +610,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/productos")}
+                id="productos"
+                onClick={() => isSelected("productos")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -612,9 +641,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/revisiones")}
+                id="revisiones"
+                onClick={() => isSelected("revisiones")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -644,9 +674,10 @@ class AsideMenu extends React.Component {
             </li>
             <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <a
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u for-select"
                 tabIndex="0"
-                onClick={() => window.history.pushState(null, "", "/cuenta")}
+                id="cuenta"
+                onClick={() => isSelected("cuenta")}
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -672,12 +703,11 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Cuenta</div>
               </a>
             </li>
-            <li className="MuiListItem-root MuiListItem-padding css-19wsrat"   >
+            <li className="MuiListItem-root MuiListItem-padding css-19wsrat">
               <button
                 className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1uk9c8u"
                 tabIndex="0"
                 onClick={() => Salir()}
-                              
               >
                 <span className="MuiButton-startIcon MuiButton-iconSizeMedium css-1l6c7y9">
                   <svg
@@ -706,7 +736,6 @@ class AsideMenu extends React.Component {
                 <div className="MuiBox-root css-i9gxme">Salir</div>
               </button>
             </li>
-            
           </>
         );
       }
