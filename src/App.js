@@ -6,6 +6,7 @@ import Dashboard from "./assets/pages/Dashboard";
 import Register from "./assets/pages/Register";
 
 import Cookies from "universal-cookie";
+import Productos from "./assets/pages/Productos";
 
 const cookies = new Cookies();
 
@@ -82,6 +83,11 @@ class App extends React.Component {
               exact
               path="/"
               element={<Dashboard></Dashboard>}
+            ></Route>
+               <Route
+              exact
+              path="/productos"
+              element={<Productos></Productos>}
             ></Route>
             {/*=============================== RUTA PARA ERRORES ===============================*/}
             <Route exact path="*" element={<>ERROR: 404</>}></Route>

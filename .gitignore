@@ -2,7 +2,8 @@
 
 #BASE DE DATOS
 basededatos.txt
-
+AsideMenu.jsx
+Dashboard.jsx
 # dependencies
 /node_modules
 /.pnp
