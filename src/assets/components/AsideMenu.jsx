@@ -35,7 +35,7 @@ class AsideMenu extends React.Component {
     setClass();
     function isSelected(id) {
       $(".selectedpage").removeClass("selectedpage");
-      window.history.pushState(null, "", "/" + id);
+      window.location.href = (null, "", "/" + id);
       if (window.location.pathname == "/" + id) {
         $("#" + id).addClass("selectedpage");
       }

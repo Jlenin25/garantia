@@ -2,6 +2,11 @@ import React from "react";
 import AsideMenu from "../components/AsideMenu";
 import Header from "../components/Header";
 import "../css/Dashboard.css";
+import Api from "../services/Api";
+import Cookies from "universal-cookie";
+import * as XLSX from "xlsx/xlsx.mjs";
+
+const cookies = new Cookies();
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -21,7 +26,41 @@ class Dashboard extends React.Component {
     }
   }
 
+  sendData() {
+    fetch(Api + "cruds/products/?dashboardcantidades", {
+      method: "POST",
+    })
+      .then((Response) => Response.json())
+      .then((dataResponse) => {
+        cookies.set("cantidades", dataResponse, { path: "/" });
+      })
+      .catch(console.log());
+  }
+  sendData() {
+    fetch(Api + "cruds/products/?reportes", {
+      method: "POST",
+    })
+      .then((Response) => Response.json())
+      .then((dataResponse) => {
+        cookies.set("reportes", dataResponse, { path: "/" });
+      })
+      .catch(console.log());
+  }
+
   render() {
+    this.sendData();
+    function ExportData(data, archivo, tipo) {
+      if (data == 0) {
+        window.alert("No existen registros de " + tipo);
+      }
+      var filename = archivo + ".xlsx";
+      var ws = XLSX.utils.json_to_sheet(data);
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "People");
+      XLSX.writeFile(wb, filename);
+    }
+    var datos = cookies.get("cantidades");
+    var jsondata = cookies.get("reportes");
     return (
       <>
         <Header GetIds={this.GetIds}></Header>
@@ -31,9 +70,14 @@ class Dashboard extends React.Component {
           <div className="main-div">
             <section className="section-stats">
               <div className="div-stats">
-                <a className="stat" href="">
+                <a
+                  className="stat"
+                  onClick={() =>
+                    ExportData(jsondata[0], "reportePedidos", "PEDIDOS")
+                  }
+                >
                   <h6>Pedidos</h6>
-                  <h5>100</h5>
+                  <h5>{datos[0][0]["COUNT(*)"]}</h5>
                   <p>Pedidos de este mes</p>
                   <svg
                     className="icons-dashboard"
@@ -52,9 +96,14 @@ class Dashboard extends React.Component {
                     </g>
                   </svg>
                 </a>
-                <a className="stat" href="">
+                <a
+                  className="stat"
+                  onClick={() =>
+                    ExportData(jsondata[1], "reporteGarantias", "GARANTÍAS")
+                  }
+                >
                   <h6>Garantías</h6>
-                  <h5>100</h5>
+                  <h5>{datos[1][0]["COUNT(*)"]}</h5>
                   <p>Garantías de este mes</p>
                   <svg
                     className="icons-dashboard"
@@ -71,9 +120,14 @@ class Dashboard extends React.Component {
                     <rect x="9" y="17" width="10" height="2" />
                   </svg>
                 </a>
-                <a className="stat" href="">
+                <a
+                  className="stat"
+                  onClick={() =>
+                    ExportData(jsondata[2], "reporteProductos", "PRODUCTOS")
+                  }
+                >
                   <h6>Productos</h6>
-                  <h5>100</h5>
+                  <h5>{datos[2][0]["COUNT(*)"]}</h5>
                   <p>Productos Totales de Almacén</p>
                   <svg
                     className="icons-dashboard"
@@ -88,9 +142,14 @@ class Dashboard extends React.Component {
                     ></path>
                   </svg>
                 </a>
-                <a className="stat" href="">
+                <a
+                  className="stat"
+                  onClick={() =>
+                    ExportData(jsondata[3], "reporteRevisiones", "REVISIONES")
+                  }
+                >
                   <h6>Revisiones</h6>
-                  <h5>100</h5>
+                  <h5>{datos[3][0]["COUNT(*)"]}</h5>
                   <p>Revisiones de este mes</p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -127,8 +186,6 @@ class Dashboard extends React.Component {
                       <td>Antivirus</td>
                       <td>13-11-22</td>
                     </tr>
-                    
-                    
                   </tbody>
                 </table>
               </div>
