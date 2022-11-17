@@ -39,7 +39,25 @@ if (isset($_GET["register"])) {
     exit();
 }
     
+if (isset($_GET["editer"])) {
+    
+    $data = json_decode(file_get_contents("php://input"));
+    
+    $iduser = $data->id;
+    $nombre = $data->nombre;
+    $ap_paterno = $data->ap_paterno;
+    $ap_materno = $data->ap_materno;
+    $contrasena = $data->contrasena;
+    $direccion = $data->direccion;
+    $dni = $data->dni;
+    $foto = $data->fotoname;
+    $celular = $data->celular;
+    $genero = $data->genero;
 
+    $sqlGarantias = mysqli_query($conexionBD,"CALL EDITER('$iduser', '$contrasena', '$nombre', '$ap_paterno', '$ap_materno', '$dni', '$direccion', '$celular', '$genero', '$foto')");
+    echo json_encode("exito");
+    exit();
+}
 
 
 $sqlGarantias = mysqli_query($conexionBD,"CALL LISTARUSUARIO()");

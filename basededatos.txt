@@ -106,8 +106,12 @@ CREATE PROCEDURE REGISTER(in Vid_usuario varchar(50), in Vcontrasena varchar(50)
 
 
 
-CREATE PROCEDURE LISTARPRODUCTOS()W
+CREATE PROCEDURE LISTARPRODUCTOS()
 SELECT producto.id_producto, producto.nombre, descripcion, stock, precio, marca.nombre, categoriaproducto.nombre FROM producto 
 	INNER JOIN categoriaproducto ON producto.id_categoria = categoriaproducto.id_categoria 
     INNER JOIN marca ON producto.id_marca = marca.id_marca;
 
+
+
+CREATE PROCEDURE EDITER(in Vid_usuario varchar(50), in Vcontrasena varchar(50), in Vnombre varchar(50), in Vap_paterno varchar(50), in Vap_materno varchar(50), in Vdni varchar(21), in Vdireccion varchar(50), in Vcelular varchar(50), in Vgenero char(1), in Vfoto varchar(50))
+	UPDATE usuario SET contrasena = Vcontrasena, nombre = Vnombre, ap_paterno = Vap_paterno,  ap_materno = Vap_materno, dni = Vdni, direccion = Vdireccion, celular = Vcelular, genero = Vgenero, foto = Vfoto;

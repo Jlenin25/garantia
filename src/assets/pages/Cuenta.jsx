@@ -2,8 +2,10 @@ import React from "react";
 import AsideMenu from "../components/AsideMenu";
 import Header from "../components/Header";
 import Cookies from "universal-cookie";
+import Api from "../services/Api";
 
 const cookies = new Cookies();
+
 class Cuenta extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,75 @@ class Cuenta extends React.Component {
     }
   }
 
+  sendData = (e) => {
+    e.preventDefault();
+
+    const inputFile = document.getElementById("foto");
+
+    if (inputFile.files.length > 0) {
+      var dataSend = {
+        id: cookies.get("id_user"),
+        nombre: document.getElementById("nombre").value,
+        ap_paterno: document.getElementById("ap_paterno").value,
+        ap_materno: document.getElementById("ap_materno").value,
+        dni: document.getElementById("dni").value,
+        contrasena: document.getElementById("contrasena").value,
+        direccion: document.getElementById("direccion").value,
+        celular: document.getElementById("celular").value,
+        genero: document.getElementById("genero").value,
+        fotoname: document.getElementById("foto").files[0].name,
+      };
+
+      let formData = new FormData();
+      formData.append("archivo", inputFile.files[0]);
+      fetch(Api + "cruds/img/index.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((respuesta) => respuesta.text())
+        .then((decodificado) => {
+          fetch(Api + "cruds/usuarios/?editer", {
+            method: "POST",
+            body: JSON.stringify(dataSend),
+          })
+            .then((Response) => Response.json())
+            .then((dataResponse) => {
+              cookies.set("logged", "0", { path: "/" });
+              window.alert("Su cuenta se cerrará para que pueda volver a ingresar.");
+              window.location.href = "/";
+            })
+            .catch(console.log());
+        });
+    } else {
+      var dataSend = {
+        id: cookies.get("id_user"),
+        nombre: document.getElementById("nombre").value,
+        ap_paterno: document.getElementById("ap_paterno").value,
+        ap_materno: document.getElementById("ap_materno").value,
+        dni: document.getElementById("dni").value,
+        contrasena: document.getElementById("contrasena").value,
+        direccion: document.getElementById("direccion").value,
+        celular: document.getElementById("celular").value,
+        genero: document.getElementById("genero").value,
+        fotoname: "sinfoto.png",
+      };
+      fetch(Api + "cruds/usuarios/?editer", {
+        method: "POST",
+        body: JSON.stringify(dataSend),
+      })
+        .then((Response) => Response.json())
+        .then((dataResponse) => {
+          cookies.set("logged", "0", { path: "/" });
+          window.alert("Su cuenta se cerrará para que pueda volver a ingresar.");
+          window.location.href = "/";
+        })
+        .catch(console.log());
+    }
+
+
+  };
   render() {
+
     return (
         <>
             <Header GetIds={this.GetIds}></Header>
@@ -39,7 +109,7 @@ class Cuenta extends React.Component {
                   Edita tus datos
                 </h4>
                 <p className="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom css-imsni4">
-                  Ingrese sus datos en los siguientes apartados:
+                  Edite sus datos en los siguientes apartados:
                 </p>
               </div>
               <div className="flex-form">

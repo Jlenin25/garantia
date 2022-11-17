@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
       })
       .catch(console.log());
   }
-  sendData() {
+  sendData2() {
     fetch(Api + "cruds/products/?reportes", {
       method: "POST",
     })
@@ -49,6 +49,7 @@ class Dashboard extends React.Component {
 
   render() {
     this.sendData();
+    this.sendData2();
     function ExportData(data, archivo, tipo) {
       if (data == 0) {
         window.alert("No existen registros de " + tipo);

@@ -44,7 +44,7 @@ class Login extends React.Component {
           if (dataResponse[0][0]["contrasena"] === dataSend.contrasena) {
             this.state.loggedin = true;
             this.props.CambiarEstado();
-
+            cookies.set("id_user",  document.getElementById("user").value, {path: "/"});
             cookies.set("contrasena", dataResponse[0][0]["contrasena"], { path: "/" });
             cookies.set("nombre", dataResponse[0][0]["nombre"], { path: "/" });
             cookies.set("ap_paterno", dataResponse[0][0]["ap_paterno"], { path: "/" });
