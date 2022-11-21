@@ -1,8 +1,12 @@
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { format } from "date-fns";
+
 import {
+  Button,
   Avatar,
   Box,
   Card,
@@ -15,9 +19,13 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { getInitials } from "../../utils/get-initials";
+//import {getInitials} from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
+export const RevisionResult = ({ revisiones, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -26,7 +34,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCustomerIds = revisiones.map((revision) => revisiones.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -69,6 +77,10 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
+  function EditarRevision(data){
+    cookies.set("editarRevisiones", data, { path: "/" });
+    window.location.href = "/revisiones/editar";
+  }
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -76,59 +88,34 @@ export const CustomerListResults = ({ customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
+                <TableCell>Id Revisión</TableCell>
                 <TableCell>Producto</TableCell>
+                <TableCell>Nombre Cliente</TableCell>
+                <TableCell>Apellidos Cliente</TableCell>
                 <TableCell>Descripcion</TableCell>
-                <TableCell>Stock</TableCell>
-                <TableCell>Precio</TableCell>
-                <TableCell>Marca</TableCell>
-                <TableCell>Categoria</TableCell>
+                <TableCell>Acciones</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {revisiones.slice(0, limit).map((revision) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={revision.id}
+                  selected={selectedCustomerIds.indexOf(revision.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
+                  <TableCell>{revision.id}</TableCell>
+                  <TableCell>{revision.nombreProducto}</TableCell>
+                  <TableCell>{revision.nombre}</TableCell>
                   <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
-                        {getInitials(customer.nombre)}
-                      </Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {customer.nombre}
-                      </Typography>
-                    </Box>
+                    {revision.ApPaterno + " " + revision.ApMaterno}
                   </TableCell>
-                  <TableCell>{customer.descripcion}</TableCell>
-                  <TableCell>{customer.stock}</TableCell>
-                  <TableCell>{customer.precio}</TableCell>
-                  <TableCell>{customer.marca}</TableCell>
-                  <TableCell>{customer.categoria}</TableCell>
+                  <TableCell>{revision.Descripcion}</TableCell>
+                  <TableCell>
+                    <button id={revision.id} type="button" className="btn btn-warning" onClick={() => EditarRevision(revision)}>
+                      Editar
+                    </button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -137,7 +124,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={revisiones.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -148,6 +135,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired,
+RevisionResult.propTypes = {
+  revisiones: PropTypes.array.isRequired,
 };

@@ -62,6 +62,7 @@ class Dashboard extends React.Component {
     }
     var datos = cookies.get("cantidades");
     var jsondata = cookies.get("reportes");
+    console.log(cookies.get("foto"));
     return (
       <>
         <Header GetIds={this.GetIds}></Header>

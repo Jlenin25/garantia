@@ -1,8 +1,12 @@
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { format } from "date-fns";
+
 import {
+  Button,
   Avatar,
   Box,
   Card,
@@ -15,9 +19,9 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { getInitials } from "../../utils/get-initials";
+//import {getInitials} from '../../utils/get-initials';
 
-export const CustomerListResults = ({ customers, ...rest }) => {
+export const GarantiasResult = ({ garantias, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -26,7 +30,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedCustomerIds = garantias.map((garantia) => garantia.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -78,57 +82,43 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedCustomerIds.length === garantias.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < customers.length
+                      selectedCustomerIds.length < garantias.length
                     }
                     onChange={handleSelectAll}
                   />
                 </TableCell>
+                <TableCell>Id</TableCell>
+                <TableCell>Usuario</TableCell>
+                <TableCell>Tipo Garantia</TableCell>
                 <TableCell>Producto</TableCell>
-                <TableCell>Descripcion</TableCell>
-                <TableCell>Stock</TableCell>
-                <TableCell>Precio</TableCell>
-                <TableCell>Marca</TableCell>
-                <TableCell>Categoria</TableCell>
+                <TableCell>Fecha de Vencimiento</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {garantias.slice(0, limit).map((garantia) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={garantia.id}
+                  selected={selectedCustomerIds.indexOf(garantia.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedCustomerIds.indexOf(garantia.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, garantia.id)}
                       value="true"
                     />
                   </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
-                        {getInitials(customer.nombre)}
-                      </Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {customer.nombre}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{customer.descripcion}</TableCell>
-                  <TableCell>{customer.stock}</TableCell>
-                  <TableCell>{customer.precio}</TableCell>
-                  <TableCell>{customer.marca}</TableCell>
-                  <TableCell>{customer.categoria}</TableCell>
+
+                  <TableCell>{garantia.id}</TableCell>
+                  <TableCell>{garantia.Usuario}</TableCell>
+                  <TableCell>{garantia.Tipo}</TableCell>
+                  <TableCell>{garantia.Producto}</TableCell>
+                  <TableCell>{garantia.Fecha}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -137,7 +127,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={garantias.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -148,6 +138,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired,
+GarantiasResult.propTypes = {
+  garantias: PropTypes.array.isRequired,
 };

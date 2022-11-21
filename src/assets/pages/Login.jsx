@@ -17,7 +17,7 @@ class Login extends React.Component {
     usuario: [],
     loggedin: false,
   };
-  componentDidMount(){
+  componentDidMount() {
     // window.history.pushState(null, "", "/");
   }
   changeValue = (e) => {
@@ -33,6 +33,7 @@ class Login extends React.Component {
       user: document.getElementById("user").value,
       contrasena: document.getElementById("password").value,
     };
+    console.log(dataSend);
     fetch(Api + "cruds/usuarios/?login=" + user, {
       method: "POST",
       body: JSON.stringify(dataSend),
@@ -44,25 +45,37 @@ class Login extends React.Component {
           if (dataResponse[0][0]["contrasena"] === dataSend.contrasena) {
             this.state.loggedin = true;
             this.props.CambiarEstado();
-            cookies.set("id_user",  document.getElementById("user").value, {path: "/"});
-            cookies.set("contrasena", dataResponse[0][0]["contrasena"], { path: "/" });
+            cookies.set("id_user", document.getElementById("user").value, {
+              path: "/",
+            });
+            cookies.set("contrasena", dataResponse[0][0]["contrasena"], {
+              path: "/",
+            });
             cookies.set("nombre", dataResponse[0][0]["nombre"], { path: "/" });
-            cookies.set("ap_paterno", dataResponse[0][0]["ap_paterno"], { path: "/" });
-            cookies.set("ap_materno", dataResponse[0][0]["ap_materno"], { path: "/" });
+            cookies.set("ap_paterno", dataResponse[0][0]["ap_paterno"], {
+              path: "/",
+            });
+            cookies.set("ap_materno", dataResponse[0][0]["ap_materno"], {
+              path: "/",
+            });
             cookies.set("dni", dataResponse[0][0]["dni"], { path: "/" });
-            cookies.set("direccion", dataResponse[0][0]["direccion"], { path: "/" });
-            cookies.set("celular", dataResponse[0][0]["celular"], { path: "/" });
+            cookies.set("direccion", dataResponse[0][0]["direccion"], {
+              path: "/",
+            });
+            cookies.set("celular", dataResponse[0][0]["celular"], {
+              path: "/",
+            });
             cookies.set("foto", dataResponse[0][0]["foto"], { path: "/" });
-            cookies.set("id_rol", dataResponse[0][0]["id_rol"], {path: "/"});
+            cookies.set("id_rol", dataResponse[0][0]["id_rol"], { path: "/" });
             switch (dataResponse[0][0]["id_rol"]) {
               case 1:
-                cookies.set("rol", 'Administrador', { path: "/" });
+                cookies.set("rol", "Administrador", { path: "/" });
                 break;
               case 2:
-                cookies.set("rol", 'Analista', { path: "/" });
+                cookies.set("rol", "Analista", { path: "/" });
                 break;
               default:
-                cookies.set("rol", 'Cliente', { path: "/" });
+                cookies.set("rol", "Cliente", { path: "/" });
                 break;
             }
 
@@ -112,7 +125,6 @@ class Login extends React.Component {
                     className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                     placeholder="Usuario"
                   />
-                  
                 </div>
               </div>
               <div className="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root css-1u0h3mu">
@@ -145,14 +157,14 @@ class Login extends React.Component {
                 </button>
               </div>
               <p className="MuiTypography-root MuiTypography-body2 css-f1egar">
-                ¿No tienes una cuenta? <a
+                ¿No tienes una cuenta?{" "}
+                <a
                   className="MuiTypography-root MuiTypography-subtitle2 MuiLink-root MuiLink-underlineHover css-1c2db0i"
                   href="/register"
                 >
                   Registrate
                 </a>
               </p>
-              
             </form>
           </div>
         </main>

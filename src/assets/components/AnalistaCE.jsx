@@ -3,13 +3,14 @@ import AsideMenu from "../components/AsideMenu";
 import Header from "../components/Header";
 import Cookies from "universal-cookie";
 import Api from "../services/Api";
+import { WindowSharp } from "@mui/icons-material";
 
 const cookies = new Cookies();
 
-class Cuenta extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+class AnalistaCE extends React.Component {
+  // constructor(props) {
+  //     super(props);
+  // }
   state = {};
   GetIds() {
     var Header = document.getElementById("Menu").parentNode.parentNode;
@@ -22,7 +23,6 @@ class Cuenta extends React.Component {
       AsideMenu.setAttribute("hidden", "1");
     }
   }
-
   sendData = (e) => {
     e.preventDefault();
 
@@ -50,17 +50,14 @@ class Cuenta extends React.Component {
       })
         .then((respuesta) => respuesta.text())
         .then((decodificado) => {
-          fetch(Api + "cruds/usuarios/?editer", {
+          fetch(Api + "cruds/usuarios/?crearanalista", {
             method: "POST",
             body: JSON.stringify(dataSend),
           })
             .then((Response) => Response.json())
             .then((dataResponse) => {
-              cookies.set("logged", "0", { path: "/" });
-              window.alert(
-                "Su cuenta se cerrará para que pueda volver a ingresar."
-              );
-              window.location.href = "/";
+              window.alert("El Id del Analista creado es: " + dataResponse);
+              window.location.href = "/analistas";
             })
             .catch(console.log());
         });
@@ -77,17 +74,14 @@ class Cuenta extends React.Component {
         genero: document.getElementById("genero").value,
         fotoname: "sinfoto.png",
       };
-      fetch(Api + "cruds/usuarios/?editer", {
+      fetch(Api + "cruds/usuarios/?crearanalista", {
         method: "POST",
         body: JSON.stringify(dataSend),
       })
         .then((Response) => Response.json())
         .then((dataResponse) => {
-          cookies.set("logged", "0", { path: "/" });
-          window.alert(
-            "Su cuenta se cerrará para que pueda volver a ingresar."
-          );
-          window.location.href = "/";
+          console.log(dataResponse);
+          window.location.href = "/analistas";
         })
         .catch(console.log());
     }
@@ -107,10 +101,10 @@ class Cuenta extends React.Component {
               >
                 <div className="MuiBox-root css-5vb4lz">
                   <h4 className="MuiTypography-root MuiTypography-h4 css-2voflx">
-                    Edita tus datos
+                    Agregar Analista
                   </h4>
                   <p className="MuiTypography-root MuiTypography-body2 MuiTypography-gutterBottom css-imsni4">
-                    Edite sus datos en los siguientes apartados:
+                    Agregue los datos en los siguientes apartados:
                   </p>
                 </div>
                 <div className="flex-form">
@@ -132,7 +126,6 @@ class Cuenta extends React.Component {
                           type="text"
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                           placeholder="Nombre"
-                          defaultValue={cookies.get("nombre")}
                           required
                         />
                       </div>
@@ -154,7 +147,6 @@ class Cuenta extends React.Component {
                           type="text"
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                           placeholder="Apellido Paterno"
-                          defaultValue={cookies.get("ap_paterno")}
                           required
                         />
                       </div>
@@ -175,7 +167,6 @@ class Cuenta extends React.Component {
                           name="lastName"
                           type="text"
                           placeholder="Apellido Materno"
-                          defaultValue={cookies.get("ap_materno")}
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                         />
                       </div>
@@ -197,7 +188,6 @@ class Cuenta extends React.Component {
                           type="text"
                           placeholder="DNI"
                           required
-                          defaultValue={cookies.get("dni")}
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                         />
                       </div>
@@ -219,7 +209,6 @@ class Cuenta extends React.Component {
                           name="password"
                           type="password"
                           placeholder="Contraseña"
-                          defaultValue={cookies.get("contrasena")}
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                         />
                       </div>
@@ -243,7 +232,6 @@ class Cuenta extends React.Component {
                           required
                           type="text"
                           placeholder="Dirección"
-                          defaultValue={cookies.get("direccion")}
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                         />
                       </div>
@@ -266,7 +254,6 @@ class Cuenta extends React.Component {
                           required
                           className="MuiInputBase-input MuiOutlinedInput-input css-j6vbi8"
                           placeholder="Celular"
-                          defaultValue={cookies.get("celular")}
                         />
                       </div>
                     </div>
@@ -319,7 +306,7 @@ class Cuenta extends React.Component {
                     type="submit"
                     id="btnRegistrar"
                   >
-                    Editar
+                    Agregar
                   </button>
                 </div>
               </form>
@@ -331,4 +318,4 @@ class Cuenta extends React.Component {
   }
 }
 
-export default Cuenta;
+export default AnalistaCE;

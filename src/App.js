@@ -18,6 +18,9 @@ import PedidosUsuario from "./assets/pages/PedidosUsuario";
 import ProductosUsuario from "./assets/pages/ProductosUsuario";
 import RevisionesUsuario from "./assets/pages/RevisionesUsuario";
 
+import AnalistaCE from "./assets/components/AnalistaCE";
+import RevisionesC from "./assets/pages/RevisionesC";
+import RevisionesE from "./assets/pages/RevisionesE";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -122,6 +125,21 @@ class App extends React.Component {
                 path="/cuenta"
                 element={<Cuenta CambiarEstado={this.CambiarEstado}></Cuenta>}
               ></Route>
+              <Route
+                exact
+                path="/analistas/crear"
+                element={<AnalistaCE CambiarEstado={this.CambiarEstado}></AnalistaCE>}
+              ></Route>
+              <Route
+                exact
+                path="/revisiones/crear"
+                element={<RevisionesC CambiarEstado={this.CambiarEstado}></RevisionesC>}
+              ></Route>
+              <Route
+                exact
+                path="/revisiones/editar"
+                element={<RevisionesE CambiarEstado={this.CambiarEstado}></RevisionesE>}
+              ></Route>
               <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
               {/*=============================== RUTA PARA ERRORES ===============================*/}
               <Route exact path="*" element={<>ERROR: 404</>}></Route>
@@ -170,6 +188,16 @@ class App extends React.Component {
                 exact
                 path="/cuenta"
                 element={<Cuenta CambiarEstado={this.CambiarEstado}></Cuenta>}
+              ></Route>
+              <Route
+                exact
+                path="/revisiones/crear"
+                element={<RevisionesC CambiarEstado={this.CambiarEstado}></RevisionesC>}
+              ></Route>
+              <Route
+                exact
+                path="/revisiones/editar"
+                element={<RevisionesE CambiarEstado={this.CambiarEstado}></RevisionesE>}
               ></Route>
               <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
               {/*=============================== RUTA PARA ERRORES ===============================*/}

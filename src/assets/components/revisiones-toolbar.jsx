@@ -11,6 +11,7 @@ import {
 import { Search as SearchIcon } from "@mui/icons-material";
 import { Upload as UploadIcon } from "@mui/icons-material";
 import { Download as DownloadIcon } from "@mui/icons-material";
+
 import Cookies from "universal-cookie";
 import * as XLSX from "xlsx/xlsx.mjs";
 
@@ -28,7 +29,7 @@ function ExportData(data, archivo, tipo) {
   XLSX.writeFile(wb, filename);
 }
 
-export const CustomerListToolbar = (props) => (
+export const RevisionListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -40,20 +41,18 @@ export const CustomerListToolbar = (props) => (
       }}
     >
       <Typography sx={{ m: 1 }} variant="h4">
-        Productos
+        Revision
       </Typography>
       <Box sx={{ m: 1 }}>
         <Button
           startIcon={<DownloadIcon fontSize="small" />}
           sx={{ mr: 1 }}
-          onClick={() =>
-            ExportData(jsondata[2], "reporteProductos", "PRODUCTOS")
-          }
+          onClick={() => ExportData(jsondata[3], "reporteRevisión", "REVISIÓN")}
         >
           Export
         </Button>
-        <Button color="primary" variant="contained" >
-          Añadir Productos
+        <Button color="primary" variant="contained" onClick={()=>window.location.href = "/revisiones/crear"}>
+          Añadir Revision
         </Button>
       </Box>
     </Box>

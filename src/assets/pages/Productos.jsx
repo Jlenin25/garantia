@@ -48,7 +48,10 @@ class Productos extends React.Component {
           sx={{
             flexGrow: 1,
             py: 8,
-            paddingTop: 64,
+            marginTop: 0,
+            marginBotton: 0,
+            marginLeft: ("auto"),
+            marginRight: ("auto")
           }}
         >
           <Container maxWidth={false}>

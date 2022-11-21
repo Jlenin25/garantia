@@ -9,7 +9,6 @@ class Header extends React.Component {
   }
   state = {};
 
-
   render() {
     return (
       <header className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-1ew0fbc">
@@ -91,11 +90,15 @@ class Header extends React.Component {
               <span className="MuiBadge-badge MuiBadge-dot MuiBadge-anchorOriginTopRight MuiBadge-anchorOriginTopRightRectangular MuiBadge-overlapRectangular MuiBadge-colorPrimary BaseBadge-badge css-cf0hj9"></span>
             </span>
           </button> */}
-          <div className="MuiAvatar-root MuiAvatar-circular css-1cdodkk" onClick={() => window.location.href = "/cuenta"}>
+          <div
+            className="MuiAvatar-root MuiAvatar-circular css-1cdodkk"
+            onClick={() => (window.location.href = "/cuenta")}
+          >
             <img
-              src={process.env.PUBLIC_URL + "/images/users/"+ cookies.get('foto')}
+              src={
+                process.env.PUBLIC_URL + "/images/users/" + cookies.get("foto")
+              }
               className="MuiAvatar-img css-1hy9t21"
-              
             />
           </div>
         </div>
