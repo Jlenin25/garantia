@@ -157,8 +157,12 @@ CREATE PROCEDURE LISTARCLIENTES()
 
 
 
-CREATE PROCEDURE EDITARREVISION(in Vid_revision varchar(50), in Vid_producto varchar(50), in Vid_usuario varchar(50), in Vdescripcion varchar(50))
+CREATE PROCEDURE EDITARREVISION(in Vid_revision varchar(50), in Vid_producto varchar(50), in Vid_usuario varchar(50), in Vdescripcion varchar(300))
 	UPDATE revisión SET id_producto = Vid_producto, id_usuario = Vid_usuario, descripcion = Vdescripcion WHERE id_revision = Vid_revision;
     
+
+
+CREATE PROCEDURE INSERTARREVISION(in Vid_revision varchar(50),in Vid_producto varchar(50), in Vid_usuario varchar(50), in Vdescripcion varchar(300))
+    INSERT INTO REVISIÓN (id_revision, id_producto, id_usuario, descripcion) VALUES (Vid_revision, Vid_producto, Vid_usuario, Vdescripcion);
 
 

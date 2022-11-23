@@ -17,6 +17,14 @@ import {
 } from "@mui/material";
 import { getInitials } from "../../utils/get-initials";
 
+import $ from "jquery";
+import Api from "../services/Api";
+
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+var jsondata = cookies.get("reportes");
+
 export const CustomerListResults = ({ customers, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
@@ -69,6 +77,38 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
+  function EliminarProducto(id) {
+    var registro = $("#" + id)
+      .parent()
+      .parent();
+    if (window.confirm("¿Desea eliminar al analista: " + id.slice(1) + " ?")) {
+      registro.hide();
+      fetch(Api + "cruds/products/?eliminarproducto", {
+        method: "POST",
+        body: JSON.stringify(id.slice(1)),
+      })
+        .then((Response) => Response.json())
+        .then((dataResponse) => {
+          window.alert("Registro: " + id.slice(1) + " eliminado.");
+          fetch(Api + "cruds/products/?reportes", {
+            method: "POST",
+          })
+            .then((Response) => Response.json())
+            .then((dataResponse) => {
+              cookies.set("reportes", dataResponse, { path: "/" });
+              console.log(cookies.get("reportes"));
+            })
+            .catch(console.log());
+        })
+        .catch(console.log());
+    }
+  }
+
+  function EditarProducto(data) {
+    cookies.set("editarProductos", data, {path : "/"});
+    window.location.href = "/productos/editar";
+  }
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -76,23 +116,14 @@ export const CustomerListResults = ({ customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
+                <TableCell>Id</TableCell>
                 <TableCell>Producto</TableCell>
                 <TableCell>Descripcion</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Precio</TableCell>
                 <TableCell>Marca</TableCell>
                 <TableCell>Categoria</TableCell>
+                <TableCell>Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -102,33 +133,36 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   key={customer.id}
                   selected={selectedCustomerIds.indexOf(customer.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Avatar src={customer.avatarUrl} sx={{ mr: 2 }}>
-                        {getInitials(customer.nombre)}
-                      </Avatar>
-                      <Typography color="textPrimary" variant="body1">
-                        {customer.nombre}
-                      </Typography>
-                    </Box>
-                  </TableCell>
+                  <TableCell>{customer.id}</TableCell>
+                  <TableCell>{customer.nombre}</TableCell>
                   <TableCell>{customer.descripcion}</TableCell>
                   <TableCell>{customer.stock}</TableCell>
                   <TableCell>{customer.precio}</TableCell>
                   <TableCell>{customer.marca}</TableCell>
                   <TableCell>{customer.categoria}</TableCell>
+                  <TableCell
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <button
+                      id={"E" + customer.id}
+                      type="button"
+                      className="btn btn-warning"
+                      onClick={() => EditarProducto(customer)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      id={"D" + customer.id}
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => EliminarProducto("D" + customer.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

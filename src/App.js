@@ -21,6 +21,8 @@ import RevisionesUsuario from "./assets/pages/RevisionesUsuario";
 import AnalistaCE from "./assets/components/AnalistaCE";
 import RevisionesC from "./assets/pages/RevisionesC";
 import RevisionesE from "./assets/pages/RevisionesE";
+import ProductosC from "./assets/pages/ProductosC";
+import ProductosE from "./assets/pages/ProductosE";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -139,6 +141,16 @@ class App extends React.Component {
                 exact
                 path="/revisiones/editar"
                 element={<RevisionesE CambiarEstado={this.CambiarEstado}></RevisionesE>}
+              ></Route>
+              <Route
+                exact
+                path="/productos/crear"
+                element={<ProductosC CambiarEstado={this.CambiarEstado}></ProductosC>}
+              ></Route>
+              <Route
+                exact
+                path="/productos/editar"
+                element={<ProductosE CambiarEstado={this.CambiarEstado}></ProductosE>}
               ></Route>
               <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
               {/*=============================== RUTA PARA ERRORES ===============================*/}

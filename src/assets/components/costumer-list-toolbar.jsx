@@ -27,7 +27,9 @@ function ExportData(data, archivo, tipo) {
   XLSX.utils.book_append_sheet(wb, ws, "People");
   XLSX.writeFile(wb, filename);
 }
-
+function CrearButton() {
+  window.location.href = "/productos/crear";
+}
 export const CustomerListToolbar = (props) => (
   <Box {...props}>
     <Box
@@ -52,7 +54,7 @@ export const CustomerListToolbar = (props) => (
         >
           Export
         </Button>
-        <Button color="primary" variant="contained" >
+        <Button color="primary" variant="contained" onClick={()=> CrearButton()}>
           Añadir Productos
         </Button>
       </Box>

@@ -128,6 +128,7 @@ class RevisionesE extends React.Component {
                           className="css-j6vbi8 graycolor"
                           id="idProducto"
                         >
+                          <option value="">---</option>
                           {mostrarProducto()}
                         </select>
                       </div>
@@ -150,6 +151,7 @@ class RevisionesE extends React.Component {
                           className="css-j6vbi8 graycolor"
                           id="idCliente"
                         >
+                          <option value="">---</option>
                           {mostrarUsuario()}
                         </select>
                       </div>
