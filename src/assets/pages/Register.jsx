@@ -281,6 +281,7 @@ class Register extends React.Component {
                       </label>
                       <input
                         type="file"
+                        accept="image/*"
                         className="css-j6vbi8 graycolor"
                         id="foto"
                         name="foto"
