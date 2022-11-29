@@ -211,6 +211,7 @@ if (isset($_GET["editarproducto"])) {
     echo json_encode($data);
     exit();
 }
+
 if (isset($_GET['crearproducto'])) {
     $data = json_decode(file_get_contents("php://input"));
 
@@ -225,6 +226,175 @@ if (isset($_GET['crearproducto'])) {
 
     $sqlGarantias = mysqli_query($conexionBD,"INSERT INTO PRODUCTO (id_producto, nombre, descripcion, stock, precio, id_marca, id_categoria) VALUES ('$id', '$nombre', '$descripcion', '$stock', '$precio', '$marca', '$categoria' )");
     echo json_encode($data);
+    exit();
+}
+
+if (isset($_GET['eliminargarantía'])) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    $sqlGarantias = mysqli_query($conexionBD, "DELETE FROM GARANTIA WHERE id_garantia = '$data'");
+    echo json_encode($data);
+    exit();
+}
+
+if (isset($_GET['renovargarantia'])) {
+    $data = json_decode(file_get_contents("php://input"));
+    $id = $data->id;
+    $fecha = $data->fecha;
+    $sqlGarantias = mysqli_query($conexionBD, "UPDATE GARANTIA SET fechavencimiento ='$fecha', estadorenovar='0'  WHERE id_garantia='$id'");
+    echo json_encode($data);
+    exit();
+}
+
+if (isset($_GET['listartipogarantia'])) {
+    $sqlGarantias = mysqli_query($conexionBD, "SELECT * FROM TIPOGARANTIA");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $tipoGarantia = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+        echo json_encode($tipoGarantia);
+        exit();
+    }
+    else{ echo json_encode([["success"=>0]]); }
+}
+
+if (isset($_GET['insertarGarantias'])) {
+    $data = json_decode(file_get_contents("php://input"));
+    $idGarantia = $data->idGarantia;
+    $idProducto = $data->idProducto;
+    $idUsuario = $data->idUsuario;
+    $idTipoGarantia = $data->idTipoGarantia;
+    $fechaVencimiento = $data->fechaVencimiento;
+
+    $sqlGarantias = mysqli_query($conexionBD,"INSERT INTO `garantia`(`id_garantia`, `id_producto`, `id_usuario`, `id_tipogarantia`, `fechavencimiento`, `estadorenovar`) VALUES ('$idGarantia','$idProducto','$idUsuario','$idTipoGarantia','$fechaVencimiento','0')");
+    echo json_encode($data);
+    exit();
+}
+
+if (isset($_GET['editarpedido'])) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    $id = $data->id;
+    $estado = $data->estado;
+
+
+    $sqlGarantias = mysqli_query($conexionBD,"UPDATE PEDIDO SET estado = '$estado' WHERE id_producto = '$id'");
+    echo json_encode($id);
+    exit();
+}
+
+if (isset($_GET['insertarpedidos'])) {
+    $data = json_decode(file_get_contents("php://input"));
+    $idPedido = $data->idPedido;
+    $idProducto = $data->idProducto;
+    $idUsuario = $data->idUsuario;
+    $fecha = $data->fecha;
+    $totalPagar = $data->totalPagar;
+
+    $sqlGarantias = mysqli_query($conexionBD,"INSERT INTO `pedido`(`id_pedido`, `id_usuario`, `id_producto`, `fecha`, `totalpagar`, `estado`) VALUES ('$idPedido','$idUsuario','$idProducto','$fecha','$totalPagar','0')");
+    echo json_encode($data);
+    exit();
+}
+
+if (isset($_GET["listarrevisionesusuario"])) {
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $sqlGarantias = mysqli_query($conexionBD,"CALL LISTARREVISIONUSUARIO('$data')");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $revisiones = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+        echo json_encode($revisiones);
+        exit();
+    }
+    else{ echo json_encode([["success"=>0]]); }
+
+}
+if (isset($_GET["listarpedidosusuario"])) {
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $sqlGarantias = mysqli_query($conexionBD,"CALL LISTARPEDIDOSUSUARIO('$data')");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $revisiones = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+        echo json_encode($revisiones);
+        exit();
+    }
+    else{ echo json_encode([["success"=>0]]); }
+
+}
+if (isset($_GET["listargarantiasusuario"])) {
+
+    $data = json_decode(file_get_contents("php://input"));
+
+    $sqlGarantias = mysqli_query($conexionBD,"CALL LISTARGARANTIASUSUARIO('$data');");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $revisiones = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+        echo json_encode($revisiones);
+        exit();
+    }
+    else{ echo json_encode([["success"=>0]]); }
+
+}
+if (isset($_GET['pedirrenovacion'])) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    $sqlGarantias = mysqli_query($conexionBD, "UPDATE GARANTIA SET estadorenovar='1'  WHERE id_garantia='$data'");
+    echo json_encode($data);
+    exit();
+}
+if (isset($_GET["reportesusuario"])) {
+
+    $datos = json_decode(file_get_contents("php://input"));
+
+    $sqlGarantias = mysqli_query($conexionBD,"SELECT * FROM pedido WHERE id_usuario='$datos'");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $data[0] = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+    }
+    else{ $data[0] = 0; }
+
+    $sqlGarantias = mysqli_query($conexionBD,"SELECT * FROM garantia WHERE id_usuario='$datos'");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $data[1] = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+    }
+    else{ $data[1] = 0; }
+
+    $sqlGarantias = mysqli_query($conexionBD,"SELECT * FROM producto");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $data[2] = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+    }
+    else{ $data[2] = 0; }
+
+    $sqlGarantias = mysqli_query($conexionBD,"SELECT * FROM revisión WHERE id_usuario='$datos'");
+    if(mysqli_num_rows($sqlGarantias) > 0){
+        $data[3] = mysqli_fetch_all($sqlGarantias,MYSQLI_ASSOC);
+    }
+    else{ $data[3] = 0; }
+
+
+    echo json_encode($data);
+    exit();
+}
+if (isset($_GET['adquirir'])) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    $idPedido = $data->idPedido;
+    $idProducto = $data->idProducto;
+    $idUsuario = $data->idUsuario;
+    $fecha = $data->fecha;
+    $total = $data->total;
+
+    $sqlGarantias = mysqli_query($conexionBD,"CALL ADQUIRIR('$idUsuario', '$idProducto', '$idPedido', '$total', '$fecha')");
+    echo json_encode($data);
+    exit();
+}
+
+if (isset($_GET['actualizarstock'])) {
+    $data = json_decode(file_get_contents("php://input"));
+
+    $idProducto = $data->idProducto;
+    $stock = $data->stock;
+
+
+    $sqlGarantias = mysqli_query($conexionBD,"UPDATE PRODUCTO SET stock = '$stock' WHERE id_producto = '$idProducto'");
+    echo json_encode($id);
     exit();
 }
 ?>

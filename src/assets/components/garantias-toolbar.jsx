@@ -28,7 +28,9 @@ function ExportData(data, archivo, tipo) {
   XLSX.utils.book_append_sheet(wb, ws, "People");
   XLSX.writeFile(wb, filename);
 }
-
+function CrearButton() {
+  window.location.href = "/garantias/crear";
+}
 export const GarantiasListToolbar = (props) => (
   <Box {...props}>
     <Box
@@ -42,14 +44,19 @@ export const GarantiasListToolbar = (props) => (
     >
       <Typography sx={{ m: 1 }} variant="h4">
         Garantias
+        
       </Typography>
       <Box sx={{ m: 1 }}>
+        
         <Button
           startIcon={<DownloadIcon fontSize="small" />}
           sx={{ mr: 1 }}
           onClick={() => ExportData(jsondata[1], "reporteGarantia", "GARANTIA")}
         >
           Export
+        </Button>
+        <Button color="primary" variant="contained" onClick={()=>CrearButton()}>
+          Añadir Garantías
         </Button>
       </Box>
     </Box>

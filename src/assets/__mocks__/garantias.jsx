@@ -25,7 +25,8 @@ data.map(function (x) {
     Usuario: x.id_usuario,
     Tipo: x.tipo,
     Producto: x.nombre,
-    Fecha: x.fechavencimiento
+    Fecha: x.fechavencimiento,
+    Estado: x.estadorenovar
   });
 });
 export { garantias };

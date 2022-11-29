@@ -4,10 +4,7 @@ import PropTypes from "prop-types";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { format } from "date-fns";
-
 import Api from "../services/Api";
-import Cookies from "universal-cookie";
-
 import {
   Button,
   Avatar,
@@ -24,7 +21,7 @@ import {
 } from "@mui/material";
 //import {getInitials} from '../../utils/get-initials';
 
-export const PedidosResult = ({ pedidos, ...rest }) => {
+export const GarantiasResultUsuario = ({ garantiausuarios, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -33,7 +30,9 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = pedidos.map((pedido) => pedidos.id);
+      newSelectedCustomerIds = garantiausuarios.map(
+        (garantiausuario) => garantiausuario.id
+      );
     } else {
       newSelectedCustomerIds = [];
     }
@@ -75,100 +74,100 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-
-  function ActualizarPedido(id, estado) {
-    var dataSend = {
-      id,
-      estado,
-    };
-    fetch(Api + "cruds/products/?editarpedido", {
+  function PedirRenovacion(id) {
+ 
+    fetch(Api + "cruds/products/?pedirrenovacion", {
       method: "POST",
-      body: JSON.stringify(dataSend),
+      body: JSON.stringify(id)
     })
       .then((Response) => Response.json())
       .then((dataResponse) => {
-        if (dataSend["estado"] == 1) {
-          window.alert("Pedido Aceptado");
-        } else {
-          window.alert("Pedido Denegado");
-        }
+        window.alert("Petición Enviada");
         window.location.reload();
       })
       .catch(console.log());
   }
-  function AccionesOrText(estado, id) {
-    console.log(estado);
-    if (estado == 0) {
-      return (
-        <>
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => ActualizarPedido(id, 1)}
-          >
-            Aceptar
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() => ActualizarPedido(id, 2)}
-          >
-            Denegar
-          </button>
-        </>
-      );
-    }else if(estado == 1){
-      return(
-        <>
-          <p>Aceptado</p>
-        </>
-      )
+  function mostrarEstadoOAccion(estado, tipo, fechaGarantia, idgarantia){
+    if (tipo == "Dinámica") {
+      var f = new Date();
+      var fechaHoyString =
+        f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
+      var fechaHoyDate = new Date(fechaHoyString);
+      var fechaDataDate = new Date(fechaGarantia + "T00:00:00");
+      if (fechaHoyDate > fechaDataDate) {
+        if (estado == 1) {
+          return(
+            <>
+              <p>Esperando Renovación.</p>
+            </>
+          );
+        }else{
+          return(
+            <>
+              <button type="button" class="btn btn-success" onClick={()=>PedirRenovacion(idgarantia)}>Renovar</button>
+            </>
+          );
+        }
+        
+      }else{
+        return(
+          <>
+            <p>En Función</p>
+          </>
+        );
+      }
     }else{
-      return(
-        <>
-          <p>Denegado</p>
-        </>
-      )
+      var f = new Date();
+      var fechaHoyString =
+        f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate();
+      var fechaHoyDate = new Date(fechaHoyString);
+      var fechaDataDate = new Date(fechaGarantia + "T00:00:00");
+      if (fechaHoyDate > fechaDataDate) {
+        return(
+          <>
+            <p>Vencida</p>
+          </>
+        );
+      }else{
+        return(
+          <>
+            <p>En Función</p>
+          </>
+        );
+      }
     }
   }
-  
   return (
-
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Id Pedido</TableCell>
-                <TableCell>Id Usuario</TableCell>
+                <TableCell>Id</TableCell>
+                <TableCell>Usuario</TableCell>
+                <TableCell>Tipo Garantia</TableCell>
                 <TableCell>Producto</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Total a pagar</TableCell>
-                <TableCell>Acciones</TableCell>
+                <TableCell>Fecha de Vencimiento</TableCell>
+                <TableCell>Acciones y Estado</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {pedidos.slice(0, limit).map((pedido) => (
+              {garantiausuarios.slice(0, limit).map((garantiausuario) => (
                 <TableRow
                   hover
-                  key={pedido.id}
-                  selected={selectedCustomerIds.indexOf(pedido.id) !== -1}
+                  key={garantiausuario.id}
+                  selected={
+                    selectedCustomerIds.indexOf(garantiausuario.id) !== -1
+                  }
                 >
-                  <TableCell>{pedido.id}</TableCell>
-                  <TableCell>{pedido.Usuario}</TableCell>
-                  <TableCell>{pedido.Producto}</TableCell>
-                  <TableCell>{pedido.Fecha}</TableCell>
-                  <TableCell>{pedido.Total}</TableCell>
-                  <TableCell
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {AccionesOrText(pedido.estado, pedido.id)}
-                  </TableCell>
+                  <TableCell>{garantiausuario.id}</TableCell>
+                  <TableCell>{garantiausuario.Usuario}</TableCell>
+                  <TableCell>{garantiausuario.Tipo}</TableCell>
+                  <TableCell>{garantiausuario.Producto}</TableCell>
+                  <TableCell>{garantiausuario.Fecha}</TableCell>
+                  <TableCell>{mostrarEstadoOAccion(garantiausuario.Estado, garantiausuario.Tipo, garantiausuario.Fecha, garantiausuario.id)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -177,7 +176,7 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={pedidos.length}
+        count={garantiausuarios.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -188,6 +187,6 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
   );
 };
 
-PedidosResult.propTypes = {
-  pedidos: PropTypes.array.isRequired,
+GarantiasResultUsuario.propTypes = {
+  garantiausuarios: PropTypes.array.isRequired,
 };

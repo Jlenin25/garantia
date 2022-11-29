@@ -23,6 +23,8 @@ import RevisionesC from "./assets/pages/RevisionesC";
 import RevisionesE from "./assets/pages/RevisionesE";
 import ProductosC from "./assets/pages/ProductosC";
 import ProductosE from "./assets/pages/ProductosE";
+import GarantiasC from "./assets/pages/GarantiasC";
+import PedidosC from "./assets/pages/PedidosC";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -152,6 +154,16 @@ class App extends React.Component {
                 path="/productos/editar"
                 element={<ProductosE CambiarEstado={this.CambiarEstado}></ProductosE>}
               ></Route>
+              <Route
+                exact
+                path="/garantias/crear"
+                element={<GarantiasC CambiarEstado={this.CambiarEstado}></GarantiasC>}
+              ></Route>
+              <Route
+                exact
+                path="/pedidos/crear"
+                element={<PedidosC CambiarEstado={this.CambiarEstado}></PedidosC>}
+              ></Route>
               <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
               {/*=============================== RUTA PARA ERRORES ===============================*/}
               <Route exact path="*" element={<>ERROR: 404</>}></Route>
@@ -165,11 +177,6 @@ class App extends React.Component {
         <Router>
           <div className="container">
             <Routes>
-              <Route
-                exact
-                path="/success"
-                element={<Succes CambiarEstado={this.CambiarEstado}></Succes>}
-              ></Route>
               <Route
                 exact
                 path="/pedidos"
@@ -210,6 +217,26 @@ class App extends React.Component {
                 exact
                 path="/revisiones/editar"
                 element={<RevisionesE CambiarEstado={this.CambiarEstado}></RevisionesE>}
+              ></Route>
+              <Route
+                exact
+                path="/productos/crear"
+                element={<ProductosC CambiarEstado={this.CambiarEstado}></ProductosC>}
+              ></Route>
+              <Route
+                exact
+                path="/productos/editar"
+                element={<ProductosE CambiarEstado={this.CambiarEstado}></ProductosE>}
+              ></Route>
+              <Route
+                exact
+                path="/garantias/crear"
+                element={<GarantiasC CambiarEstado={this.CambiarEstado}></GarantiasC>}
+              ></Route>
+              <Route
+                exact
+                path="/pedidos/crear"
+                element={<PedidosC CambiarEstado={this.CambiarEstado}></PedidosC>}
               ></Route>
               <Route exact path="/" element={<Dashboard></Dashboard>}></Route>
               {/*=============================== RUTA PARA ERRORES ===============================*/}

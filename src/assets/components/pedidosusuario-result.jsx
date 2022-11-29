@@ -5,9 +5,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { format } from "date-fns";
 
-import Api from "../services/Api";
-import Cookies from "universal-cookie";
-
 import {
   Button,
   Avatar,
@@ -24,7 +21,7 @@ import {
 } from "@mui/material";
 //import {getInitials} from '../../utils/get-initials';
 
-export const PedidosResult = ({ pedidos, ...rest }) => {
+export const PedidosResultUsuario = ({ pedidousuarios, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -33,7 +30,9 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = pedidos.map((pedido) => pedidos.id);
+      newSelectedCustomerIds = pedidousuarios.map(
+        (pedidousuario) => pedidousuario.id
+      );
     } else {
       newSelectedCustomerIds = [];
     }
@@ -75,65 +74,16 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-
-  function ActualizarPedido(id, estado) {
-    var dataSend = {
-      id,
-      estado,
-    };
-    fetch(Api + "cruds/products/?editarpedido", {
-      method: "POST",
-      body: JSON.stringify(dataSend),
-    })
-      .then((Response) => Response.json())
-      .then((dataResponse) => {
-        if (dataSend["estado"] == 1) {
-          window.alert("Pedido Aceptado");
-        } else {
-          window.alert("Pedido Denegado");
-        }
-        window.location.reload();
-      })
-      .catch(console.log());
-  }
-  function AccionesOrText(estado, id) {
-    console.log(estado);
-    if (estado == 0) {
-      return (
-        <>
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => ActualizarPedido(id, 1)}
-          >
-            Aceptar
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() => ActualizarPedido(id, 2)}
-          >
-            Denegar
-          </button>
-        </>
-      );
-    }else if(estado == 1){
-      return(
-        <>
-          <p>Aceptado</p>
-        </>
-      )
+  function mostrarEstado(num){
+    if (num == 0) {
+      return(<p style={{color: "yellow", WebkitTextStroke: 0.25 +"px black"}}>Pendiente</p>);
+    }else if (num==1){
+      return(<p style={{color: "green"}}>Aceptado</p>);
     }else{
-      return(
-        <>
-          <p>Denegado</p>
-        </>
-      )
+      return(<p style={{color: "red"}}>Denegado</p>);
     }
   }
-  
   return (
-
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
@@ -145,30 +95,25 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
                 <TableCell>Producto</TableCell>
                 <TableCell>Fecha</TableCell>
                 <TableCell>Total a pagar</TableCell>
-                <TableCell>Acciones</TableCell>
+                <TableCell>Estado</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {pedidos.slice(0, limit).map((pedido) => (
+              {pedidousuarios.slice(0, limit).map((pedidousuario) => (
                 <TableRow
                   hover
-                  key={pedido.id}
-                  selected={selectedCustomerIds.indexOf(pedido.id) !== -1}
+                  key={pedidousuario.id}
+                  selected={
+                    selectedCustomerIds.indexOf(pedidousuario.id) !== -1
+                  }
                 >
-                  <TableCell>{pedido.id}</TableCell>
-                  <TableCell>{pedido.Usuario}</TableCell>
-                  <TableCell>{pedido.Producto}</TableCell>
-                  <TableCell>{pedido.Fecha}</TableCell>
-                  <TableCell>{pedido.Total}</TableCell>
-                  <TableCell
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {AccionesOrText(pedido.estado, pedido.id)}
-                  </TableCell>
+                  <TableCell>{pedidousuario.id}</TableCell>
+                  <TableCell>{pedidousuario.Usuario}</TableCell>
+                  <TableCell>{pedidousuario.Producto}</TableCell>
+                  <TableCell>{pedidousuario.Fecha}</TableCell>
+                  <TableCell>{pedidousuario.Total}</TableCell>
+                  <TableCell>{mostrarEstado(pedidousuario.estado)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -177,7 +122,7 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={pedidos.length}
+        count={pedidousuarios.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -188,6 +133,6 @@ export const PedidosResult = ({ pedidos, ...rest }) => {
   );
 };
 
-PedidosResult.propTypes = {
-  pedidos: PropTypes.array.isRequired,
+PedidosResultUsuario.propTypes = {
+  pedidousuarios: PropTypes.array.isRequired,
 };

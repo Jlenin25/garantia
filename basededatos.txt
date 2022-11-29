@@ -130,7 +130,7 @@ CREATE PROCEDURE LISTARREVISION()
 
 
 CREATE PROCEDURE LISTARGARANTIAS()
-	SELECT id_garantia, producto.nombre, id_usuario, tipogarantia.nombre AS 'tipo', fechavencimiento FROM GARANTIA
+	SELECT id_garantia, producto.nombre, id_usuario, tipogarantia.nombre AS 'tipo', fechavencimiento, estadorenovar FROM GARANTIA
     INNER JOIN producto ON garantia.id_producto = producto.id_producto
     INNER JOIN tipogarantia ON tipogarantia.id_tipogarantia = garantia.id_tipogarantia;
 
@@ -164,5 +164,35 @@ CREATE PROCEDURE EDITARREVISION(in Vid_revision varchar(50), in Vid_producto var
 
 CREATE PROCEDURE INSERTARREVISION(in Vid_revision varchar(50),in Vid_producto varchar(50), in Vid_usuario varchar(50), in Vdescripcion varchar(300))
     INSERT INTO REVISIÓN (id_revision, id_producto, id_usuario, descripcion) VALUES (Vid_revision, Vid_producto, Vid_usuario, Vdescripcion);
+
+
+
+CREATE PROCEDURE LISTARREVISIONUSUARIO(in Vid varchar(11))
+SELECT id_revision, producto.nombre AS 'productonombre', usuario.nombre, usuario.ap_paterno, usuario.ap_materno, revisión.descripcion FROM revisión 
+    INNER JOIN producto ON revisión.id_producto = producto.id_producto
+    INNER JOIN usuario ON revisión.id_usuario = usuario.id_usuario
+    WHERE revisión.id_usuario = Vid;
+
+
+
+CREATE PROCEDURE LISTARPEDIDOSUSUARIO(in Vid varchar(11))
+SELECT id_pedido, id_usuario, producto.nombre AS 'producto', fecha, totalpagar, estado FROM pedido
+    INNER JOIN producto ON producto.id_producto = pedido.id_producto
+    WHERE pedido.id_usuario = Vid;
+
+
+
+CREATE PROCEDURE LISTARGARANTIASUSUARIO(in Vid varchar(11))
+SELECT id_garantia, producto.nombre, id_usuario, tipogarantia.nombre AS 'tipo', fechavencimiento, estadorenovar FROM GARANTIA
+    INNER JOIN producto ON garantia.id_producto = producto.id_producto
+    INNER JOIN tipogarantia ON tipogarantia.id_tipogarantia = garantia.id_tipogarantia
+    WHERE garantia.id_usuario = Vid;
+
+
+
+CREATE PROCEDURE ADQUIRIR(in Vid_usuario varchar(11), in Vid_producto varchar(11), in Vid_pedido varchar(11), in Vtotal varchar(11), in Vfecha varchar(11))
+INSERT INTO pedido (id_pedido, id_usuario, id_producto, fecha, totalpagar, estado) 
+VALUES (Vid_pedido, Vid_usuario, Vid_producto, Vfecha, Vtotal, '0');
+
 
 

@@ -25,7 +25,8 @@ data.map(function (x) {
     Usuario: x.id_usuario,
     Total: x.totalpagar,
     Producto: x.producto,
-    Fecha: x.fecha
+    Fecha: x.fecha,
+    estado: x.estado
   });
 });
 export { pedidos };

@@ -70,7 +70,7 @@ class Dashboard extends React.Component {
         <AsideMenu></AsideMenu>
         <main className="main-class">
           <div className="main-div">
-            <section className="section-stats">
+            <section>
               <div className="div-stats">
                 <a
                   className="stat"
@@ -169,29 +169,7 @@ class Dashboard extends React.Component {
                 </a>
               </div>
             </section>
-            <section className="userlist">
-              <div>
-                <h5>Últimos Pedidos</h5>
-                <table className="tablelist">
-                  <thead className="table-head">
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Apellido</th>
-                      <th>Producto</th>
-                      <th>Fecha</th>
-                    </tr>
-                  </thead>
-                  <tbody className="table-body">
-                    <tr>
-                      <td>Juan</td>
-                      <td>Pablo</td>
-                      <td>Antivirus</td>
-                      <td>13-11-22</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
+            
           </div>
         </main>
       </>
