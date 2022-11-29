@@ -61,6 +61,7 @@ CREATE TABLE GARANTIA(
 	id_usuario varchar(50),
 	id_tipogarantia int(7),
 	fechavencimiento date,
+	estadorenovar char(1),
 	PRIMARY KEY (id_garantia),
 	FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto),
 	FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario),
@@ -83,6 +84,7 @@ CREATE TABLE PEDIDO(
 	id_producto int(7),
 	fecha date,
 	totalpagar int(7),
+	estado char(1),
 	PRIMARY KEY (id_pedido),
 	FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto),
 	FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
