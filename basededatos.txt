@@ -1,6 +1,6 @@
-CREATE DATABASE dbGarantias;
+CREATE DATABASE dbgarantias;
 
-USE dbGarantias;
+USE dbgarantias;
 
 CREATE TABLE ROL(
 	id_rol int NOT NULL AUTO_INCREMENT,
@@ -107,15 +107,14 @@ SELECT contrasena, nombre, ap_paterno, ap_materno, dni, direccion, celular, id_r
 
 
 
-CREATE PROCEDURE REGISTER(in Vid_usuario varchar(50), in Vcontrasena varchar(50), in Vnombre varchar(50), in Vap_paterno varchar(50), in Vap_materno varchar(50), in Vdni varchar(21), in Vdireccion varchar(50), in Vcelular varchar(50), in Vgenero char(1), in Vfoto varchar(50))
-	INSERT INTO usuario (id_usuario, contrasena, nombre, ap_paterno, ap_materno, dni, direccion, celular, id_rol, genero, foto) VALUES (Vid_usuario, Vcontrasena, Vnombre, Vap_paterno, Vap_materno, Vdni, Vdireccion, Vcelular, 3, Vgenero, Vfoto);
-
+CREATE PROCEDURE REGISTER(in Vid_usuario varchar(50), in Vcontrasena varchar(50), in Vnombre varchar(50), in Vap_paterno varchar(50), in Vap_materno varchar(50), in Vdni varchar(21), in Vdireccion varchar(50), in Vcelular varchar(50),in Vrol int, in Vgenero char(1), in Vfoto varchar(50))
+INSERT INTO usuario (id_usuario, contrasena, nombre, ap_paterno, ap_materno, dni, direccion, celular, id_rol, genero, foto) VALUES (Vid_usuario, Vcontrasena, Vnombre, Vap_paterno, Vap_materno, Vdni, Vdireccion, Vcelular, Vrol, Vgenero, Vfoto);
 
 
 CREATE PROCEDURE LISTARPRODUCTOS()
-SELECT producto.id_producto, producto.nombre, descripcion, stock, precio, marca.nombre, categoriaproducto.nombre FROM producto 
+SELECT producto.id_producto, producto.nombre, descripcion, stock, precio, marca.nombre AS 'marca', categoriaproducto.nombre AS 'categoria' FROM producto 
 	INNER JOIN categoriaproducto ON producto.id_categoria = categoriaproducto.id_categoria 
-    INNER JOIN marca ON producto.id_marca = marca.id_marca;
+    INNER JOIN marca ON producto.id_marca = marca.id_marca
 
 
 
@@ -139,8 +138,8 @@ CREATE PROCEDURE LISTARGARANTIAS()
 
 
 CREATE PROCEDURE LISTARPEDIDOS()
-	SELECT id_pedido, id_usuario, producto.nombre AS 'producto', fecha, totalpagar FROM pedido
-    INNER JOIN producto ON producto.id_producto = pedido.id_producto;
+	SELECT id_pedido, id_usuario, producto.nombre AS 'producto', fecha, totalpagar, estado FROM pedido
+    INNER JOIN producto ON producto.id_producto = pedido.id_producto
 
 
 

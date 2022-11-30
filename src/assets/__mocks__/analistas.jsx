@@ -18,30 +18,33 @@ function sendData() {
 }
 sendData();
 data = cookies.get("analistas");
-data.map(function (x) {
-  if (x.ap_materno == "") {
-    x.ap_materno = "-";
-    analistas.push({
-      id: x.id_usuario,
-      nombre: x.nombre,
-      ApePaterno: x.ap_paterno,
-      ApeMaterno: x.ap_materno,
-      DNI: x.dni,
-      Direccion: x.direccion,
-      Celular: x.celular,
-      Genero: x.genero,
-    });
-  } else {
-    analistas.push({
-      id: x.id_usuario,
-      nombre: x.nombre,
-      ApePaterno: x.ap_paterno,
-      ApeMaterno: x.ap_materno,
-      DNI: x.dni,
-      Direccion: x.direccion,
-      Celular: x.celular,
-      Genero: x.genero,
-    });
-  }
-});
+if (data[0]['success'] != 0) {
+  data.map(function (x) {
+    if (x.ap_materno == "") {
+      x.ap_materno = "-";
+      analistas.push({
+        id: x.id_usuario,
+        nombre: x.nombre,
+        ApePaterno: x.ap_paterno,
+        ApeMaterno: x.ap_materno,
+        DNI: x.dni,
+        Direccion: x.direccion,
+        Celular: x.celular,
+        Genero: x.genero,
+      });
+    } else {
+      analistas.push({
+        id: x.id_usuario,
+        nombre: x.nombre,
+        ApePaterno: x.ap_paterno,
+        ApeMaterno: x.ap_materno,
+        DNI: x.dni,
+        Direccion: x.direccion,
+        Celular: x.celular,
+        Genero: x.genero,
+      });
+    }
+  });
+}
+
 export { analistas };

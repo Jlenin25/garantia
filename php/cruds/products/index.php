@@ -276,7 +276,7 @@ if (isset($_GET['editarpedido'])) {
     $estado = $data->estado;
 
 
-    $sqlGarantias = mysqli_query($conexionBD,"UPDATE PEDIDO SET estado = '$estado' WHERE id_producto = '$id'");
+    $sqlGarantias = mysqli_query($conexionBD,"UPDATE PEDIDO SET estado = '$estado' WHERE id_pedido = '$id'");
     echo json_encode($id);
     exit();
 }

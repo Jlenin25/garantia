@@ -73,18 +73,18 @@ class ProductosE extends React.Component {
     } else {
       dataSend["categoria"] = $("#categoriaSelect").val();
     }
-    // fetch(Api + "cruds/products/?editarproducto", {
-    //   method: "POST",
-    //   body: JSON.stringify(dataSend),
-    // })
-    //   .then((Response) => Response.json())
-    //   .then((dataResponse) => {
-    //     window.alert(
-    //       "Registro " + cookies.get("editarProductos")["id"] + " Editado"
-    //     );
-    //     window.location.href = "/productos";
-    //   })
-    //   .catch(console.log());
+    fetch(Api + "cruds/products/?editarproducto", {
+      method: "POST",
+      body: JSON.stringify(dataSend),
+    })
+      .then((Response) => Response.json())
+      .then((dataResponse) => {
+        window.alert(
+          "Registro " + cookies.get("editarProductos")["id"] + " Editado"
+        );
+        window.location.href = "/productos";
+      })
+      .catch(console.log());
   }
   render() {
     function traerData() {
